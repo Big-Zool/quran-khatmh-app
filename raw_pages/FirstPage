@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Create New Khatm</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#6b8e7c",
+                        "background-light": "#fafaf9",
+                        "background-dark": "#2a3733",
+                        "surface-light": "#ffffff",
+                        "surface-dark": "#364540",
+                        "text-main": "#141514",
+                        "text-sub": "#727975",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px" },
+                    backgroundImage: {
+                        'islamic-pattern': "url(\"data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%236b8e7c' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\")",
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-text-main dark:text-white min-h-screen flex flex-col relative overflow-hidden transition-colors duration-300">
+<!-- Decorative Background Elements -->
+<div class="absolute inset-0 z-0 pointer-events-none bg-islamic-pattern opacity-100 dark:opacity-50"></div>
+<div class="absolute top-0 right-0 -mr-20 -mt-20 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[100px] pointer-events-none"></div>
+<div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[80px] pointer-events-none"></div>
+<!-- Main Layout Container -->
+<div class="layout-container relative z-10 flex h-full grow flex-col justify-center items-center p-4 md:p-8">
+<!-- Central Card Container (Mobile-first focused) -->
+<div class="w-full max-w-[480px] bg-surface-light dark:bg-surface-dark shadow-[0_32px_64px_-12px_rgba(0,0,0,0.08)] dark:shadow-[0_32px_64px_-12px_rgba(0,0,0,0.3)] rounded-xl overflow-hidden transition-colors duration-300 border border-primary/5 dark:border-white/5">
+<!-- Header -->
+<header class="flex items-center justify-between px-6 py-5 border-b border-primary/10 dark:border-white/5 bg-white/50 dark:bg-black/10 backdrop-blur-sm">
+<button class="flex items-center justify-center text-text-main dark:text-white hover:bg-primary/10 rounded-full w-10 h-10 transition-colors">
+<span class="material-symbols-outlined text-2xl">arrow_back</span>
+</button>
+<h2 class="text-lg font-bold tracking-tight text-text-main dark:text-white">New Khatm</h2>
+<div class="w-10"></div> <!-- Spacer for visual balance -->
+</header>
+<!-- Content Area -->
+<div class="p-8 flex flex-col gap-8">
+<!-- Page Heading & Intention -->
+<div class="flex flex-col gap-2">
+<span class="text-primary text-sm font-semibold tracking-wider uppercase opacity-80">Intention</span>
+<h1 class="text-3xl md:text-4xl font-black leading-tight tracking-[-0.02em] text-text-main dark:text-white">
+                        Start a Khatm
+                    </h1>
+<p class="text-text-sub dark:text-gray-400 text-base leading-relaxed mt-1">
+                        Create a space for family and friends to complete the Holy Qur'an together.
+                    </p>
+</div>
+<!-- Input Form -->
+<div class="flex flex-col gap-6">
+<label class="group flex flex-col gap-3">
+<span class="text-text-main dark:text-gray-200 text-base font-medium">Who is this Khatm for?</span>
+<div class="relative">
+<input class="w-full h-16 px-5 rounded-lg border-2 border-transparent bg-background-light dark:bg-black/20 text-text-main dark:text-white placeholder-text-sub/50 focus:border-primary focus:bg-white dark:focus:bg-black/30 focus:ring-0 transition-all duration-300 text-lg shadow-inner outline-none" placeholder="e.g. Amir’s Khatm" type="text"/>
+<div class="absolute right-4 top-1/2 -translate-y-1/2 text-primary opacity-0 group-focus-within:opacity-100 transition-opacity duration-300 pointer-events-none">
+<span class="material-symbols-outlined">edit</span>
+</div>
+</div>
+<p class="text-sm text-text-sub dark:text-gray-400 flex items-start gap-2 mt-1">
+<span class="material-symbols-outlined text-[18px] mt-0.5 shrink-0">info</span>
+                            Naming the Khatm helps participants understand the intention behind the gathering.
+                        </p>
+</label>
+<!-- Divider -->
+<div class="h-px w-full bg-gradient-to-r from-transparent via-primary/20 to-transparent"></div>
+<!-- Helper Info Box -->
+<div class="bg-primary/5 dark:bg-white/5 rounded-lg p-5 border border-primary/10 dark:border-white/5 flex gap-4 items-start">
+<div class="w-10 h-10 rounded-full bg-white dark:bg-surface-dark shadow-sm flex items-center justify-center shrink-0 text-primary">
+<span class="material-symbols-outlined text-[20px]">share</span>
+</div>
+<div class="flex flex-col gap-1">
+<h4 class="text-sm font-bold text-text-main dark:text-white">What happens next?</h4>
+<p class="text-sm text-text-sub dark:text-gray-300 leading-relaxed">
+                                Once created, you will receive a unique link to invite family and friends to select and read specific Juz.
+                            </p>
+</div>
+</div>
+</div>
+<!-- Action Button -->
+<div class="pt-2">
+<button class="relative w-full overflow-hidden rounded-xl bg-primary text-white h-14 font-bold text-lg shadow-[0_8px_16px_-4px_rgba(107,142,124,0.4)] hover:shadow-[0_12px_20px_-4px_rgba(107,142,124,0.6)] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 group">
+<span class="relative z-10 flex items-center justify-center gap-2">
+                            Create Khatm
+                            <span class="material-symbols-outlined transition-transform duration-300 group-hover:translate-x-1">arrow_forward</span>
+</span>
+<div class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+</button>
+<p class="text-center text-xs text-text-sub/60 dark:text-gray-500 mt-4">
+                        By creating a Khatm, you agree to our Terms of Service.
+                    </p>
+</div>
+</div>
+</div>
+<!-- Footer Branding -->
+<div class="mt-8 opacity-40 hover:opacity-100 transition-opacity duration-300">
+<div class="flex items-center gap-2 text-primary dark:text-white text-sm font-medium">
+<span class="material-symbols-outlined text-[18px]">mosque</span>
+<span>Distributed Khatm Platform</span>
+</div>
+</div>
+</div>
+</body></html>

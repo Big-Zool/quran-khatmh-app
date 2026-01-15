@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Qur'an Reading Interface</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&amp;family=Amiri:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#6b8e7c",
+                        "primary-dark": "#557263",
+                        "background-light": "#fafaf9",
+                        "background-dark": "#2a3733",
+                        "surface-light": "#ffffff",
+                        "surface-dark": "#1e2624",
+                        "text-main": "#3C4A45",
+                        "text-light": "#727975",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"],
+                        "quran": ["Amiri", "serif"],
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "2xl": "2rem",
+                        "full": "9999px"
+                    },
+                    backgroundImage: {
+                        'pattern-light': "radial-gradient(#6b8e7c 0.5px, transparent 0.5px), radial-gradient(#6b8e7c 0.5px, #fafaf9 0.5px)",
+                        'pattern-dark': "radial-gradient(#6b8e7c 0.5px, transparent 0.5px), radial-gradient(#6b8e7c 0.5px, #2a3733 0.5px)",
+                    },
+                    backgroundSize: {
+                        'pattern': '20px 20px',
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom scrollbar for better aesthetics */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background-color: rgba(107, 142, 124, 0.3);
+            border-radius: 20px;
+        }
+        
+        /* Smooth scrolling for the reading experience */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body class="relative min-h-screen w-full flex flex-col bg-background-light dark:bg-background-dark font-display text-text-main dark:text-white transition-colors duration-300 overflow-x-hidden selection:bg-primary/30">
+<!-- Ambient Background Pattern -->
+<div class="fixed inset-0 pointer-events-none opacity-[0.03] dark:opacity-[0.05]" style="background-image:  radial-gradient(currentColor 1px, transparent 1px); background-size: 32px 32px;">
+</div>
+<!-- Top Navigation Bar (Sticky) -->
+<header class="fixed top-0 left-0 right-0 z-40 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-lg border-b border-stone-200/50 dark:border-stone-700/50 transition-all duration-300">
+<div class="max-w-[960px] mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+<button class="group flex items-center justify-center p-2 rounded-full hover:bg-stone-100 dark:hover:bg-white/10 transition-colors text-text-main dark:text-white">
+<span class="material-symbols-outlined text-[24px] group-hover:-translate-x-0.5 transition-transform">arrow_back</span>
+</button>
+<div class="flex flex-col items-center text-center">
+<h1 class="text-base sm:text-lg font-bold leading-tight tracking-tight text-text-main dark:text-white">
+                    Juz 30 • Pages 585–587
+                </h1>
+<p class="text-xs font-medium text-primary dark:text-primary-light opacity-90 mt-0.5">
+                    Dedication for Ahmed Al-Farsi
+                </p>
+</div>
+<button class="p-2 rounded-full hover:bg-stone-100 dark:hover:bg-white/10 transition-colors text-text-light dark:text-stone-300">
+<span class="material-symbols-outlined text-[24px]">settings</span>
+</button>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="relative z-10 flex-grow flex flex-col items-center pt-24 pb-32 px-4 sm:px-6">
+<div class="w-full max-w-2xl flex flex-col gap-6">
+<!-- Progress Section -->
+<div class="flex flex-col gap-2 px-2">
+<div class="flex justify-between items-end">
+<span class="text-sm font-semibold text-text-light dark:text-stone-400 tracking-wide uppercase text-[11px]">Session Progress</span>
+<span class="text-sm font-bold text-primary">35%</span>
+</div>
+<div class="h-1.5 w-full bg-stone-200 dark:bg-stone-700/50 rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full transition-all duration-1000 ease-out" style="width: 35%;"></div>
+</div>
+</div>
+<!-- The Mushaf (Reading Pane) -->
+<article class="bg-surface-light dark:bg-surface-dark rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.2)] border border-stone-100 dark:border-stone-800 overflow-hidden relative group/page">
+<!-- Decorative Top Border -->
+<div class="h-1.5 w-full bg-gradient-to-r from-primary/40 via-primary to-primary/40"></div>
+<!-- Surah Header -->
+<div class="bg-stone-50/50 dark:bg-white/5 py-4 border-b border-stone-100 dark:border-stone-700/50 flex flex-col items-center justify-center gap-1">
+<div class="flex items-center gap-3 opacity-80">
+<span class="h-px w-8 bg-primary/40"></span>
+<span class="font-quran text-2xl text-primary font-bold">سُورَةُ النَّبَإِ</span>
+<span class="h-px w-8 bg-primary/40"></span>
+</div>
+<span class="text-[10px] uppercase tracking-widest text-text-light dark:text-stone-400 font-bold">Meccan • 40 Verses</span>
+</div>
+<!-- Quran Text Content -->
+<div class="p-6 sm:p-10 md:p-12">
+<!-- Bismillah -->
+<div class="flex justify-center mb-10">
+<div class="relative py-2 px-6">
+<p class="font-quran text-2xl sm:text-3xl text-center text-text-main dark:text-stone-200 leading-loose" dir="rtl">
+                                بِسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ
+                            </p>
+</div>
+</div>
+<!-- Verses -->
+<div class="font-quran text-2xl sm:text-[32px] leading-[2.2] sm:leading-[2.5] text-justify text-text-main dark:text-stone-100 tracking-wide" dir="rtl" style="text-align-last: center;">
+<span class="inline-block hover:text-primary transition-colors cursor-pointer" title="Verse 1">عَمَّ يَتَسَآءَلُونَ </span>
+<span class="text-primary text-xl px-1">۝١</span>
+<span class="inline-block hover:text-primary transition-colors cursor-pointer" title="Verse 2"> عَنِ ٱلنَّبَإِ ٱلۡعَظِيمِ </span>
+<span class="text-primary text-xl px-1">۝٢</span>
+<span class="inline-block hover:text-primary transition-colors cursor-pointer" title="Verse 3"> ٱلَّذِي هُمۡ فِيهِ مُخۡتَلِفُونَ </span>
+<span class="text-primary text-xl px-1">۝٣</span>
+<span class="inline-block hover:text-primary transition-colors cursor-pointer" title="Verse 4"> كَلَّا سَيَعۡلَمُونَ </span>
+<span class="text-primary text-xl px-1">۝٤</span>
+<span class="inline-block hover:text-primary transition-colors cursor-pointer" title="Verse 5"> ثُمَّ كَلَّا سَيَعۡلَمُونَ </span>
+<span class="text-primary text-xl px-1">۝٥</span>
+<span class="inline-block hover:text-primary transition-colors cursor-pointer" title="Verse 6"> أَلَمۡ نَجۡعَلِ ٱلۡأَرۡضَ مِهَٰدٗا </span>
+<span class="text-primary text-xl px-1">۝٦</span>
+<span class="inline-block hover:text-primary transition-colors cursor-pointer" title="Verse 7"> وَٱلۡجِبَالَ أَوۡتَادٗا </span>
+<span class="text-primary text-xl px-1">۝٧</span>
+<span class="inline-block hover:text-primary transition-colors cursor-pointer" title="Verse 8"> وَخَلَقۡنَٰكُمۡ أَزۡوَٰجٗا </span>
+<span class="text-primary text-xl px-1">۝٨</span>
+<span class="inline-block hover:text-primary transition-colors cursor-pointer" title="Verse 9"> وَجَعَلۡنَا نَوۡمَكُمۡ سُبَاتٗا </span>
+<span class="text-primary text-xl px-1">۝٩</span>
+<span class="inline-block hover:text-primary transition-colors cursor-pointer" title="Verse 10"> وَجَعَلۡنَا ٱلَّيۡلَ لِبَاسٗا </span>
+<span class="text-primary text-xl px-1">۝١٠</span>
+</div>
+</div>
+<!-- Page Footer -->
+<div class="bg-stone-50/30 dark:bg-white/5 py-3 px-6 border-t border-stone-100 dark:border-stone-700/50 flex justify-between items-center text-xs sm:text-sm text-text-light dark:text-stone-500">
+<span>Juz 30</span>
+<span class="font-bold font-display">Page 585</span>
+<span>An-Naba</span>
+</div>
+</article>
+<!-- Next Page Preview (Subtle Cue) -->
+<div class="opacity-40 hover:opacity-100 transition-opacity duration-300 cursor-pointer group flex flex-col items-center gap-2 pb-4">
+<span class="text-xs font-semibold uppercase tracking-wider text-text-light dark:text-stone-400">Scroll for Page 586</span>
+<span class="material-symbols-outlined text-text-light dark:text-stone-400 animate-bounce">keyboard_arrow_down</span>
+</div>
+</div>
+</main>
+<!-- Floating Action Footer -->
+<footer class="fixed bottom-0 left-0 right-0 z-50 pointer-events-none">
+<!-- Gradient overlay to fade out content behind footer -->
+<div class="absolute bottom-0 w-full h-32 bg-gradient-to-t from-background-light via-background-light/90 to-transparent dark:from-background-dark dark:via-background-dark/90 dark:to-transparent"></div>
+<div class="relative flex justify-center pb-8 pt-4 px-4">
+<button class="pointer-events-auto shadow-[0_8px_25px_rgba(107,142,124,0.4)] hover:shadow-[0_12px_30px_rgba(107,142,124,0.5)] bg-primary hover:bg-[#5a7a6a] dark:bg-primary dark:hover:bg-[#7ca38f] text-white h-14 px-8 rounded-xl flex items-center justify-center gap-3 transition-all duration-300 transform active:scale-95 group">
+<span class="material-symbols-outlined text-[24px]">check_circle</span>
+<span class="text-base font-bold tracking-wide">I Have Finished Reading</span>
+</button>
+</div>
+</footer>
+</body></html>

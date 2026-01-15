@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Khatm Created &amp; Share</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#6b8e7c",
+                        "background-light": "#fafaf9",
+                        "background-dark": "#2a3733",
+                        "text-main": "#141514",
+                        "text-muted": "#727975",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px"},
+                    backgroundImage: {
+                        'islamic-pattern': "url('data:image/svg+xml,%3Csvg width=\\'60\\' height=\\'60\\' viewBox=\\'0 0 60 60\\' xmlns=\\'http://www.w3.org/2000/svg\\'%3E%3Cg fill=\\'%236b8e7c\\' fill-opacity=\\'0.05\\' fill-rule=\\'evenodd\\'%3E%3Cpath d=\\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\\'/%3E%3C/g%3E%3C/svg%3E')"
+                    }
+                },
+            },
+        }
+    </script>
+<style>body {
+    font-family: "Manrope", sans-serif
+    }
+/* Custom subtle texture for background */
+.bg-islamic-texture {
+    background-color: #fafaf9;
+    background-image: radial-gradient(circle at 100% 100%, rgba(107, 142, 124, 0.05) 0%, transparent 50%), radial-gradient(circle at 0% 0%, rgba(107, 142, 124, 0.05) 0%, transparent 50%)
+    }
+.dark .bg-islamic-texture {
+    background-color: #2a3733;
+    background-image: radial-gradient(circle at 100% 100%, rgba(255, 255, 255, 0.03) 0%, transparent 50%), radial-gradient(circle at 0% 0%, rgba(255, 255, 255, 0.03) 0%, transparent 50%)
+    }
+/* Pattern Overlay */
+.pattern-overlay {
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuDo4W25bBUQdy7z4QWPZnpqM8ZKEm91GrhO4618MiUDWOU8iBVP70DjPWAUQhGKARZFc64GwKaY7mXnlRV1C6S2iXVGahn4hGAPOYBPCWOpL0Dk8w5iqykeWyjYD_qfBgTII-ikE0V6i6yauncxBF06IL_cE7dtbtvC5SZNXoJrD7c3b55m09i4b4CCqWQB3PreIVWlR1xVrRgQdWE5v6XPhFOjSMQTswDFbtj_sUCV1uQN8bJTHjWAK2cd0Ni0hoyixH6sUUISJ1EM)
+    }
+.dark .pattern-overlay {
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuBM-Zr-9Zytdd3iIl6N68rDrDrMUtxeuKdoHrBdI7KL39MgcoAvHyRS1iHdM5FF2L5mlwTkk3UfEeWR5q1VHp1kk5jvxcnkCBGS8_SDlouc-JpdJwJvlEHclRApV442VWf_DUHdn3nZuvbw-UzDtQp8AWnO7lqZHkB1nzON6HnglUHACpFhqDLcX3Gnd1PctcxwXI0DBWqgPGSh6uFSmmH1fIBiNVs-nmgxnJZYay9UFN2vm1TTD1XPfEXnIBvqO08eIeyWhtP3HsFR)
+    }</style>
+</head>
+<body class="relative flex h-full min-h-screen w-full flex-col bg-islamic-texture text-text-main dark:text-white font-display overflow-x-hidden">
+<!-- Background Pattern Overlay -->
+<div class="fixed inset-0 pointer-events-none pattern-overlay opacity-60 z-0"></div>
+<!-- Navigation -->
+<nav class="relative z-10 w-full border-b border-[#e5e7eb] dark:border-[#3a4d47] bg-white/80 dark:bg-background-dark/80 backdrop-blur-sm">
+<div class="max-w-[960px] mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex items-center justify-between h-16">
+<!-- Logo / Brand -->
+<div class="flex items-center gap-3">
+<div class="flex items-center justify-center size-8 rounded-lg bg-primary/10 dark:bg-primary/20 text-primary">
+<span class="material-symbols-outlined text-2xl">menu_book</span>
+</div>
+<span class="text-lg font-bold tracking-tight text-[#141514] dark:text-white">Khatm</span>
+</div>
+<!-- User Profile -->
+<button class="flex items-center justify-center size-9 rounded-full bg-background-light dark:bg-white/10 hover:bg-gray-100 dark:hover:bg-white/20 transition-colors">
+<span class="material-symbols-outlined text-gray-600 dark:text-gray-200 text-xl">person</span>
+</button>
+</div>
+</div>
+</nav>
+<!-- Main Content Container -->
+<main class="relative z-10 flex-1 flex flex-col items-center justify-center px-4 py-8 sm:py-12 w-full">
+<!-- Central Card -->
+<div class="w-full max-w-[500px] bg-white dark:bg-[#34423d] rounded-2xl shadow-xl dark:shadow-2xl dark:shadow-black/20 overflow-hidden border border-gray-100 dark:border-[#3f504a]">
+<!-- Success Header Strip -->
+<div class="w-full h-2 bg-primary"></div>
+<div class="p-6 sm:p-8 flex flex-col items-center">
+<!-- Success Icon -->
+<div class="mb-6 flex items-center justify-center size-16 rounded-full bg-primary/10 dark:bg-primary/20 text-primary animate-pulse">
+<span class="material-symbols-outlined text-4xl">check_circle</span>
+</div>
+<!-- Headline -->
+<h1 class="text-center text-2xl sm:text-3xl font-bold text-[#141514] dark:text-white leading-tight tracking-tight mb-2">
+                    Khatm Created Successfully
+                </h1>
+<!-- Subtitle (Context) -->
+<h2 class="text-center text-lg sm:text-xl font-medium text-gray-600 dark:text-gray-300 mb-6">
+                    Khatm for Grandfather
+                </h2>
+<!-- Divider -->
+<div class="w-16 h-px bg-gray-200 dark:bg-gray-600 mb-6"></div>
+<!-- Instructions Body -->
+<p class="text-center text-base text-gray-500 dark:text-gray-400 mb-6 max-w-sm leading-relaxed">
+                    Share this link with family and friends to begin reading together. Everyone can track their progress in real-time.
+                </p>
+<!-- Copy Link Component -->
+<div class="w-full mb-8">
+<label class="block text-xs font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-500 mb-2 pl-1">
+                        Shareable Link
+                    </label>
+<div class="flex items-stretch rounded-xl bg-background-light dark:bg-[#2a3733] border border-[#dfe1e0] dark:border-[#4a5f57] group hover:border-primary/50 transition-colors overflow-hidden">
+<input class="flex-1 bg-transparent border-none text-[#141514] dark:text-white text-sm sm:text-base px-4 py-3.5 focus:ring-0 truncate font-mono placeholder-gray-400" readonly="" type="text" value="https://khatm.app/share/k8392-fj29"/>
+<button class="flex items-center justify-center px-4 sm:px-5 bg-white dark:bg-[#3a4d47] border-l border-[#dfe1e0] dark:border-[#4a5f57] hover:bg-gray-50 dark:hover:bg-[#435952] text-primary transition-colors cursor-pointer group-active:bg-primary/10">
+<span class="material-symbols-outlined text-xl">content_copy</span>
+<span class="ml-2 text-sm font-bold hidden sm:inline">Copy</span>
+</button>
+</div>
+</div>
+<!-- Progress Section -->
+<div class="w-full bg-background-light dark:bg-[#2a3733] rounded-xl p-5 border border-dashed border-gray-200 dark:border-[#4a5f57] mb-8">
+<div class="flex items-center justify-between mb-3">
+<span class="text-sm font-bold text-[#141514] dark:text-white flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-lg">donut_large</span>
+                            Current Progress
+                        </span>
+<span class="text-sm font-medium text-gray-500 dark:text-gray-400 bg-white dark:bg-[#3a4d47] px-2 py-0.5 rounded text-xs border border-gray-100 dark:border-transparent">
+                            0%
+                        </span>
+</div>
+<!-- Progress Bar -->
+<div class="relative h-3 w-full bg-gray-200 dark:bg-[#3a4d47] rounded-full overflow-hidden">
+<!-- Empty state subtle pattern/gradient -->
+<div class="absolute inset-0 opacity-10" style="background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, #000 10px, #000 11px);"></div>
+<div class="h-full bg-primary rounded-full transition-all duration-1000 ease-out" style="width: 0%"></div>
+</div>
+<div class="flex justify-between items-center mt-3">
+<span class="text-xs text-gray-400 dark:text-gray-500 font-medium">Juz 1</span>
+<span class="text-xs font-semibold text-gray-600 dark:text-gray-300">0 / 604 pages completed</span>
+<span class="text-xs text-gray-400 dark:text-gray-500 font-medium">Juz 30</span>
+</div>
+</div>
+<!-- Primary Action Button -->
+<button class="w-full flex items-center justify-center gap-2 bg-primary hover:bg-[#5a7a6b] text-white rounded-xl py-3.5 px-6 font-bold text-base transition-transform active:scale-[0.99] shadow-lg shadow-primary/20">
+<span>Open Khatm</span>
+<span class="material-symbols-outlined text-lg">arrow_forward</span>
+</button>
+<!-- Secondary subtle link -->
+<a class="mt-4 text-sm text-gray-400 hover:text-primary dark:text-gray-500 dark:hover:text-primary transition-colors" href="#">
+                    Back to Dashboard
+                </a>
+</div>
+</div>
+<!-- Decorative Footer Quote -->
+<div class="mt-12 max-w-lg text-center opacity-60">
+<span class="material-symbols-outlined text-primary/40 text-2xl mb-2">format_quote</span>
+<p class="text-sm italic text-[#141514] dark:text-gray-300 font-serif">
+                "The best of you are those who learn the Qur'an and teach it."
+            </p>
+</div>
+</main>
+</body></html>

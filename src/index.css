@@ -1,0 +1,8 @@
+@import "tailwindcss";
+@config "../tailwind.config.js";
+
+@layer base {
+  body {
+    @apply font-display bg-background-light text-text-main dark:bg-background-dark dark:text-white transition-colors duration-300;
+  }
+}

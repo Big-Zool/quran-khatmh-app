@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Khatm Completed</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&amp;family=Noto+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#6b8e7c",
+                        "background-light": "#fafaf9",
+                        "background-dark": "#2a3733",
+                        "text-main": "#141514",
+                        "text-muted": "#727975",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"],
+                        "arabic": ["Noto Sans Arabic", "sans-serif"],
+                    },
+                    borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px"},
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'fade-in': 'fadeIn 0.8s ease-out forwards',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        fadeIn: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom geometric pattern background */
+        .bg-pattern {
+            background-color: #fafaf9;
+            background-image: radial-gradient(#6b8e7c 0.5px, transparent 0.5px), radial-gradient(#6b8e7c 0.5px, #fafaf9 0.5px);
+            background-size: 20px 20px;
+            background-position: 0 0, 10px 10px;
+            opacity: 0.1;
+        }
+        .dark .bg-pattern {
+            background-color: #2a3733;
+            background-image: radial-gradient(#6b8e7c 0.5px, transparent 0.5px), radial-gradient(#6b8e7c 0.5px, #2a3733 0.5px);
+            opacity: 0.1;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-text-main dark:text-white min-h-screen flex flex-col overflow-x-hidden">
+<!-- Ambient Background Pattern -->
+<div class="fixed inset-0 pointer-events-none z-0 bg-pattern"></div>
+<!-- Top Navigation -->
+<header class="relative z-10 w-full px-6 py-4 flex items-center justify-center border-b border-primary/10 bg-white/50 dark:bg-background-dark/50 backdrop-blur-sm">
+<div class="max-w-6xl w-full flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="size-8 text-primary">
+<span class="material-symbols-outlined text-[32px]">menu_book</span>
+</div>
+<h1 class="text-xl font-bold tracking-tight text-primary">Khatm</h1>
+</div>
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Home</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">My Khatms</a>
+<div class="size-8 rounded-full bg-primary/20 flex items-center justify-center overflow-hidden">
+<div class="w-full h-full bg-center bg-cover" data-alt="User profile avatar placeholder" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCqbEE3h9Di4lmKVAN-wVzxPrBwVmXFO0q7A6sVQMgwOAVJwOz5I7GpFYpO5LJxwbtLy23AH_lJKjiWoMT4XZEHMd_kSsZyh2u3vVhgOnGE5Xiq8H7HZirxv1UXVNx4S__9ree40sxfoWtpfw_2xMX_jhQPAGt7I4EKHUc8wXhggEJmdpQA4YgU_kyueOoOWPY3tLOd4_rzbki3caIei5KyyWFiAAfk3AiTwbVntz_jFIzJe_D-21fskYFy4xVHCBy28Sc3w52XbLi7");'></div>
+</div>
+</nav>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="relative z-10 flex-grow flex flex-col items-center justify-center p-4 md:py-12">
+<!-- Central Container (Mobile-first layout on desktop) -->
+<div class="w-full max-w-[480px] flex flex-col gap-6 opacity-0 animate-fade-in" style="animation-delay: 0.1s;">
+<!-- Success Card -->
+<div class="bg-white dark:bg-[#34423e] rounded-xl shadow-lg border border-primary/10 overflow-hidden relative">
+<!-- Decorative Top Gradient -->
+<div class="h-2 w-full bg-gradient-to-r from-primary/40 via-primary to-primary/40"></div>
+<div class="p-8 flex flex-col items-center text-center gap-6">
+<!-- Animated Icon -->
+<div class="relative size-20 animate-float">
+<div class="absolute inset-0 bg-primary/10 rounded-full animate-pulse"></div>
+<div class="absolute inset-2 border-2 border-primary rounded-full"></div>
+<div class="flex items-center justify-center h-full w-full text-primary">
+<span class="material-symbols-outlined text-4xl">check_circle</span>
+</div>
+</div>
+<!-- Hero Text -->
+<div class="space-y-2">
+<h2 class="text-3xl md:text-4xl font-black tracking-tight text-primary font-arabic">Alhamdulillah</h2>
+<p class="text-lg font-medium text-text-main dark:text-gray-100">This Khatm is fully complete.</p>
+</div>
+<!-- Progress Stats -->
+<div class="w-full bg-background-light dark:bg-background-dark/50 rounded-lg p-4 flex items-center justify-between border border-primary/5">
+<div class="flex flex-col items-start">
+<span class="text-xs text-text-muted uppercase tracking-wider font-semibold">Progress</span>
+<span class="text-sm font-bold">604 / 604 Pages</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="h-2 w-24 bg-gray-200 dark:bg-gray-600 rounded-full overflow-hidden">
+<div class="h-full bg-primary w-full"></div>
+</div>
+<span class="text-sm font-bold text-primary">100%</span>
+</div>
+</div>
+<!-- Deceased Dedication -->
+<div class="flex flex-col items-center gap-2 pt-2">
+<p class="text-sm text-text-muted">Dedicated to the soul of</p>
+<div class="px-4 py-2 bg-primary/5 rounded-full border border-primary/10">
+<span class="text-base font-bold text-text-main dark:text-white">Ibrahim Ahmed</span>
+</div>
+<span class="text-xs text-text-muted italic">May Allah grant them Jannah</span>
+</div>
+</div>
+</div>
+<!-- Dua Card (The next logical step) -->
+<div class="bg-[#f0f5f3] dark:bg-[#3e524b] rounded-xl border border-primary/20 p-6 flex flex-col gap-4 relative overflow-hidden group hover:border-primary/40 transition-colors">
+<!-- Background texture for card -->
+<div class="absolute top-0 right-0 opacity-10 -mr-4 -mt-4 transform rotate-12">
+<span class="material-symbols-outlined text-[120px] text-primary">auto_stories</span>
+</div>
+<div class="relative z-10">
+<h3 class="font-bold text-lg text-text-main dark:text-white mb-1">Khatm al-Qur'an Dua</h3>
+<p class="text-sm text-text-muted dark:text-gray-300 mb-4 leading-relaxed max-w-[85%]">
+                        It is recommended to recite the supplication of completion. Together we raise our hands in prayer.
+                    </p>
+<button class="w-full bg-primary hover:bg-[#5a7a6b] text-white font-bold py-3.5 px-4 rounded-lg flex items-center justify-center gap-2 transition-transform active:scale-[0.98] shadow-md shadow-primary/20">
+<span class="material-symbols-outlined">menu_book</span>
+<span>Read Dua &amp; Finish</span>
+</button>
+</div>
+</div>
+<!-- Secondary Actions -->
+<div class="flex flex-col gap-3 text-center pt-2">
+<button class="text-sm font-semibold text-text-muted hover:text-primary transition-colors flex items-center justify-center gap-2 py-2">
+<span class="material-symbols-outlined text-lg">add_circle</span>
+                    Start a New Khatm
+                </button>
+<a class="text-xs text-text-muted hover:text-text-main transition-colors underline decoration-dotted underline-offset-4" href="#">
+                    View Khatm Details
+                </a>
+</div>
+</div>
+</main>
+<!-- Ambient Footer Element -->
+<div class="fixed bottom-0 left-0 w-full h-32 bg-gradient-to-t from-white dark:from-background-dark to-transparent pointer-events-none z-0"></div>
+</body></html>
