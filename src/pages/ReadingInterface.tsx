@@ -72,6 +72,16 @@ const ReadingInterface: React.FC = () => {
         fetchPages();
     }, [startPage, endPage, isValidSession]);
 
+    const [randomDua, setRandomDua] = useState<string>("");
+
+    const DUAS = [
+        "اللهم اغفر له وارحمه، وعافه واعف عنه، وأكرم نزله، ووسع مدخله",
+        "اللهم اجعل قبره روضة من رياض الجنة، ولا تجعله حفرة من حفر النار",
+        "اللهم آنس وحدته، وآنسه في وحشته وغربته",
+        "اللهم اجعل قبره نورًا وضياءً لا ينقطع أبدًا",
+        "اللهم اجعل روحه مطمئنة راضية مرضية"
+    ];
+
     if (!isValidSession) {
         return (
             <div className="bg-background-light dark:bg-background-dark min-h-screen flex flex-col items-center justify-center text-center p-4">
@@ -82,6 +92,8 @@ const ReadingInterface: React.FC = () => {
     }
 
     const handleFinish = () => {
+        const random = DUAS[Math.floor(Math.random() * DUAS.length)];
+        setRandomDua(random);
         setIsFinished(true);
     };
 
@@ -100,7 +112,7 @@ const ReadingInterface: React.FC = () => {
 
                     <div className="bg-gray-50 dark:bg-black/20 p-6 rounded-xl mb-8 border border-gray-100 dark:border-gray-700">
                         <p className="text-lg leading-loose font-quran text-gray-800 dark:text-gray-200">
-                            ”اللهم اجعل ثواب ما قرأت نورًا في قبره واغفر له وارحمه“
+                            ”{randomDua}“
                         </p>
                     </div>
 
@@ -137,12 +149,20 @@ const ReadingInterface: React.FC = () => {
                             <span className="material-symbols-outlined">close</span>
                         </button>
 
-                        <div className="mb-6 mt-2 text-center">
-                            <h3 className="text-xl font-bold text-primary mb-2">تنبيه</h3>
-                            <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
-                                الرجاء الإبلاغ في حال ملاحظة وجود خطأ في الآية
-                                <br />
-                                أو في حال أن التطبيق لا يعمل بشكل صحيح
+                        <div className="mb-6 mt-2 text-center flex flex-col gap-4">
+                            <div>
+                                <h3 className="text-xl font-bold text-primary mb-2">تنبيه</h3>
+                                <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+                                    الرجاء الإبلاغ في حال ملاحظة وجود خطأ في الآية
+                                    <br />
+                                    أو في حال أن التطبيق لا يعمل بشكل صحيح
+                                </p>
+                            </div>
+
+                            <div className="h-px bg-gray-100 dark:bg-white/10 w-full" />
+
+                            <p className="text-sm font-medium text-text-main dark:text-white leading-relaxed opacity-80">
+                                هذا التطبيق هو صدقه جاريه عني و عن ابي و امي و عمي امير مشاوي و سائر المسلمين الاموات منهم و الاحياء
                             </p>
                         </div>
 

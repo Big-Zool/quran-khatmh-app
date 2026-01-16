@@ -101,7 +101,7 @@ const CreateKhatm: React.FC = () => {
                                 <div className="relative">
                                     <input
                                         className="w-full h-16 px-5 rounded-lg border-2 border-transparent bg-background-light dark:bg-black/20 text-text-main dark:text-white placeholder-text-sub/50 focus:border-primary focus:bg-white dark:focus:bg-black/30 focus:ring-0 transition-all duration-300 text-lg shadow-inner outline-none"
-                                        placeholder="مثال:امير مشاوي , ختمة العائلة، ختمة الأصدقاء..."
+                                        placeholder="مثال: امير عوض  , امنه مشاوي ، عبدالرازق عبدالمجيد..."
                                         type="text"
                                         value={khatmName}
                                         onChange={(e) => {
