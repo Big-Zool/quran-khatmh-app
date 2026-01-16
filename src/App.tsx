@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import CreateKhatm from './pages/CreateKhatm';
 import ShareKhatm from './pages/ShareKhatm';
@@ -7,6 +8,18 @@ import KhatmCompleted from './pages/KhatmCompleted';
 import Terms from './pages/Terms';
 
 function App() {
+  useEffect(() => {
+    const storedTheme = localStorage.getItem('theme');
+    // Default to dark if no preference (null), or if explicitly 'dark'
+    const isDarkPref = storedTheme === 'dark' || !storedTheme;
+
+    if (isDarkPref) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, []);
+
   return (
     <Router>
       <div className="min-h-screen font-arabic text-text-main dark:text-white bg-background-light dark:bg-background-dark">

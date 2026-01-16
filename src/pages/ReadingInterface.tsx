@@ -18,7 +18,13 @@ const ReadingInterface: React.FC = () => {
     const [pagesContent, setPagesContent] = useState<QuranPageData[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
-    const [isDark, setIsDark] = useState(true); // Default to true now
+    const [isDark, setIsDark] = useState(() => {
+        if (typeof window !== 'undefined') {
+            const stored = localStorage.getItem('theme');
+            return stored === 'dark' || !stored;
+        }
+        return true;
+    });
     const [showReportModal, setShowReportModal] = useState(false);
 
     // Validate state

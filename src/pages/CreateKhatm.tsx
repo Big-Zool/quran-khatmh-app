@@ -8,7 +8,13 @@ const CreateKhatm: React.FC = () => {
     const [khatmName, setKhatmName] = useState('');
     const [isCreating, setIsCreating] = useState(false);
     const [error, setError] = useState<string | null>(null);
-    const [isDark, setIsDark] = useState(true);
+    const [isDark, setIsDark] = useState(() => {
+        if (typeof window !== 'undefined') {
+            const stored = localStorage.getItem('theme');
+            return stored === 'dark' || !stored;
+        }
+        return true;
+    });
 
     // Dark Mode Init
     useEffect(() => {

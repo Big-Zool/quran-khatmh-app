@@ -1,0 +1,32 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /khatms/{khatmId} {
+      // Public read (anyone can view a khatm)
+      allow read: if true;
+
+      // Create
+      allow create: if request.resource.data.keys().hasOnly(
+        ['name', 'slug', 'currentPage', 'totalPages', 'isCompleted', 'completedCount', 'createdAt']
+      )
+      && request.resource.data.name is string
+      && request.resource.data.slug is string
+      && request.resource.data.currentPage is int
+      && request.resource.data.totalPages is int
+      && request.resource.data.isCompleted is bool
+      && request.resource.data.completedCount is int
+      && request.resource.data.createdAt is timestamp;
+
+      // Update
+      allow update: if request.resource.data.diff(resource.data).affectedKeys()
+        .hasOnly(['currentPage', 'isCompleted', 'completedCount'])
+      && request.resource.data.currentPage is int
+      && request.resource.data.currentPage >= resource.data.currentPage
+      && request.resource.data.completedCount >= resource.data.completedCount
+      && request.resource.data.isCompleted is bool;
+      
+      // Delete (forbidden)
+      allow delete: if false;
+    }
+  }
+}
