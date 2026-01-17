@@ -97,7 +97,7 @@ const JoinKhatm: React.FC = () => {
                     <p className="text-sm text-text-sub">اختر عدد الصفحات التي تستطيع قراءتها الآن</p>
 
                     <div className="flex flex-wrap justify-center gap-3">
-                        {[1, 2, 3, 4, 5].map(num => (
+                        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(num => (
                             <button
                                 key={num}
                                 onClick={() => setPagesToRead(num)}
