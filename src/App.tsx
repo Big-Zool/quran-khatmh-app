@@ -7,6 +7,8 @@ import ReadingInterface from './pages/ReadingInterface';
 import KhatmCompleted from './pages/KhatmCompleted';
 import Terms from './pages/Terms';
 
+import { Analytics } from '@vercel/analytics/react';
+
 function App() {
   useEffect(() => {
     const storedTheme = localStorage.getItem('theme');
@@ -32,6 +34,7 @@ function App() {
           <Route path="/completed/:khatmId" element={<KhatmCompleted />} />
           <Route path="/terms" element={<Terms />} />
         </Routes>
+        <Analytics />
       </div>
     </Router>
   );
