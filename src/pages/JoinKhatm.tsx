@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getKhatmBySlug, assignPages, type Khatm } from '../firebase/khatmService';
+import { useLanguage } from '../contexts/LanguageContext';
 
 const JoinKhatm: React.FC = () => {
     const { khatmId } = useParams<{ khatmId: string }>(); // slug
     const navigate = useNavigate();
+    const { t } = useLanguage();
 
     const [khatm, setKhatm] = useState<Khatm | null>(null);
     const [loading, setLoading] = useState(true);
@@ -17,7 +19,7 @@ const JoinKhatm: React.FC = () => {
             getKhatmBySlug(khatmId)
                 .then(data => {
                     if (data) setKhatm(data);
-                    else setError("الختمة غير موجودة");
+                    else setError(t('khatmNotFound'));
                 })
                 .catch(err => console.error(err))
                 .finally(() => setLoading(false));
@@ -36,19 +38,19 @@ const JoinKhatm: React.FC = () => {
         } catch (err: any) {
             console.error(err);
             if (err.message.includes("completed")) {
-                setError("عذراً، لقد اكتملت هذه الختمة للتو!");
+                setError(t('errorCompleted'));
                 // Optionally refresh state or redirect
             } else {
-                setError("حدث خطأ أثناء حجز الصفحات. يرجى المحاولة مرة أخرى.");
+                setError(t('errorReserve'));
             }
         } finally {
             setAssigning(false);
         }
     };
 
-    if (loading) return <div className="flex h-screen items-center justify-center text-primary font-bold">جاري التحميل...</div>;
-    if (!khatm) return <div className="p-8 text-center">{error || "الختمة غير موجودة"}</div>;
-    if (khatm.isCompleted) return <div className="p-8 text-center text-xl font-bold text-primary">الحمد لله، اكتملت هذه الختمة!</div>;
+    if (loading) return <div className="flex h-screen items-center justify-center text-primary font-bold">{t('loading')}</div>;
+    if (!khatm) return <div className="p-8 text-center">{error || t('khatmNotFound')}</div>;
+    if (khatm.isCompleted) return <div className="p-8 text-center text-xl font-bold text-primary">{t('khatmCompletedMsg')}</div>;
 
     // Determine current progress percentage
     const progressPercent = Math.round(((khatm.currentPage - 1) / 604) * 100);
@@ -61,7 +63,7 @@ const JoinKhatm: React.FC = () => {
                 <button onClick={() => navigate(-1)} className="p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10">
                     <span className="material-symbols-outlined">arrow_forward</span>
                 </button>
-                <h1 className="font-bold text-lg">انضم للختمة</h1>
+                <h1 className="font-bold text-lg">{t('joinTitle')}</h1>
                 <div className="w-10"></div>
             </header>
 
@@ -72,13 +74,13 @@ const JoinKhatm: React.FC = () => {
                     <div className="relative z-10">
                         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary w-fit mb-3">
                             <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
-                            <span className="text-xs font-bold uppercase">ختمة نشطة</span>
+                            <span className="text-xs font-bold uppercase">{t('activeKhatm')}</span>
                         </div>
                         <h2 className="text-2xl font-bold mb-1">{khatm.name}</h2>
                         <div className="flex justify-between items-end mt-6">
                             <div className="flex flex-col">
-                                <span className="text-sm font-semibold">نسبة الإنجاز</span>
-                                <span className="text-xs text-text-sub">الصفحة {khatm.currentPage} من 604</span>
+                                <span className="text-sm font-semibold">{t('progress')}</span>
+                                <span className="text-xs text-text-sub">{t('page')} {khatm.currentPage} {t('from')}</span>
                             </div>
                             <span className="text-2xl font-bold text-primary">{progressPercent}%</span>
                         </div>
@@ -93,8 +95,8 @@ const JoinKhatm: React.FC = () => {
 
                 {/* Selection Section */}
                 <div className="flex flex-col gap-4 text-center mt-2">
-                    <h3 className="text-xl font-bold">كم صفحة تود أن تقرأ؟</h3>
-                    <p className="text-sm text-text-sub">اختر عدد الصفحات التي تستطيع قراءتها الآن</p>
+                    <h3 className="text-xl font-bold">{t('howManyPages')}</h3>
+                    <p className="text-sm text-text-sub">{t('selectPagesDesc')}</p>
 
                     <div className="flex flex-wrap justify-center gap-3">
                         {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(num => (
@@ -117,7 +119,7 @@ const JoinKhatm: React.FC = () => {
                 <div className="flex items-center justify-center gap-2 bg-primary/5 text-primary py-3 rounded-xl border border-primary/10 mx-4">
                     <span className="material-symbols-outlined text-lg">schedule</span>
                     <span className="text-sm font-semibold">
-                        وقت القراءة المقدر: {pagesToRead * 2} دقائق
+                        {t('estimatedTime')}: {pagesToRead * 2} {t('minutes')}
                     </span>
                 </div>
 
@@ -134,7 +136,7 @@ const JoinKhatm: React.FC = () => {
                     disabled={assigning}
                     className="w-full bg-primary hover:bg-primary-dark disabled:opacity-70 text-white rounded-xl py-4 font-bold text-lg shadow-lg shadow-primary/30 flex items-center justify-center gap-2 transition-transform active:scale-[0.98]"
                 >
-                    {assigning ? 'جاري الحجز...' : 'بدء القراءة'}
+                    {assigning ? t('reserving') : t('startReading')}
                     {!assigning && <span className="material-symbols-outlined rotate-180">arrow_back</span>}
                 </button>
 

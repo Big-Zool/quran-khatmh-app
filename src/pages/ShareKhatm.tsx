@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { getKhatmBySlug, type Khatm } from '../firebase/khatmService';
+import { useLanguage } from '../contexts/LanguageContext';
 
 const ShareKhatm: React.FC = () => {
     const { khatmId } = useParams<{ khatmId: string }>(); // This is actually the SLUG now
+    const { t } = useLanguage();
     const [khatm, setKhatm] = useState<Khatm | null>(null);
     const [loading, setLoading] = useState(true);
     const [copied, setCopied] = useState(false);
@@ -42,7 +44,7 @@ const ShareKhatm: React.FC = () => {
     if (loading) {
         return (
             <div className="flex items-center justify-center h-screen bg-background-light dark:bg-background-dark">
-                <div className="text-primary animate-pulse font-bold">جاري التحميل...</div>
+                <div className="text-primary animate-pulse font-bold">{t('loading')}</div>
             </div>
         );
     }
@@ -50,8 +52,8 @@ const ShareKhatm: React.FC = () => {
     if (!khatm) {
         return (
             <div className="flex items-center justify-center h-screen bg-background-light dark:bg-background-dark flex-col gap-4">
-                <h1 className="text-xl font-bold text-text-main dark:text-white">الختمة غير موجودة</h1>
-                <Link to="/" className="text-primary underline">العودة للرئيسية</Link>
+                <h1 className="text-xl font-bold text-text-main dark:text-white">{t('khatmNotFound')}</h1>
+                <Link to="/" className="text-primary underline">{t('backHome')}</Link>
             </div>
         );
     }
@@ -70,7 +72,7 @@ const ShareKhatm: React.FC = () => {
                 </div>
 
                 <h1 className="text-2xl font-bold text-text-main dark:text-white mb-2">
-                    تم إنشاء الختمة بنجاح
+                    {t('createdSuccess')}
                 </h1>
 
                 <h2 className="text-xl font-medium text-primary mb-6">
@@ -78,7 +80,7 @@ const ShareKhatm: React.FC = () => {
                 </h2>
 
                 <div className="mb-8">
-                    <label className="block text-sm text-text-sub dark:text-gray-400 mb-2">رابط المشاركة</label>
+                    <label className="block text-sm text-text-sub dark:text-gray-400 mb-2">{t('shareLink')}</label>
                     <div className="flex items-stretch rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden bg-background-light dark:bg-black/20">
                         <input
                             readOnly
@@ -90,14 +92,14 @@ const ShareKhatm: React.FC = () => {
                             onClick={handleCopy}
                             className="px-4 bg-white dark:bg-surface-dark border-r border-gray-200 dark:border-gray-700 text-primary font-bold text-sm hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
                         >
-                            {copied ? "تم النسخ" : "نسخ"}
+                            {copied ? t('copied') : t('copy')}
                         </button>
                     </div>
                 </div>
 
                 <div className="bg-background-light dark:bg-black/20 rounded-lg p-4 mb-6">
                     <div className="flex justify-between items-center mb-2">
-                        <span className="text-sm font-bold text-text-main dark:text-white">نسبة الإنجاز</span>
+                        <span className="text-sm font-bold text-text-main dark:text-white">{t('progress')}</span>
                         <span className="text-sm font-bold text-primary">
                             {Math.round(((khatm.currentPage - 1) / 604) * 100)}%
                         </span>
@@ -112,7 +114,7 @@ const ShareKhatm: React.FC = () => {
                     className="flex w-full items-center justify-center gap-2 bg-primary text-white rounded-xl py-3.5 font-bold hover:bg-primary-dark transition-colors"
                 >
                     <span className="material-symbols-outlined">menu_book</span>
-                    عرض الختمة
+                    {t('viewKhatm')}
                 </Link>
             </div>
         </div>

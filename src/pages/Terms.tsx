@@ -1,8 +1,10 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useLanguage } from '../contexts/LanguageContext';
 
 const Terms: React.FC = () => {
     const navigate = useNavigate();
+    const { t } = useLanguage();
 
     return (
         <div className="min-h-screen bg-background-light dark:bg-background-dark text-text-main dark:text-white flex flex-col items-center p-4">
@@ -12,7 +14,7 @@ const Terms: React.FC = () => {
                     <span className="material-symbols-outlined">arrow_forward</span>
                 </button>
                 <div className="flex-1 text-center pr-8">
-                    <h1 className="font-bold text-lg">الشروط والأحكام</h1>
+                    <h1 className="font-bold text-lg">{t('termsTitle')}</h1>
                 </div>
             </header>
 
@@ -22,7 +24,7 @@ const Terms: React.FC = () => {
                 </div>
 
                 <p className="text-xl font-medium text-gray-600 dark:text-gray-300">
-                    سيتم إضافة الشروط والأحكام قريبًا
+                    {t('termsComingSoon')}
                 </p>
             </div>
         </div>

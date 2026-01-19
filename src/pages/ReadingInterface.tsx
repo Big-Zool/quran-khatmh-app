@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate, useParams, Link } from 'react-router-dom';
 import { getQuranPage, type QuranPageData, toArabicNumerals } from '../services/quranService';
+import { useLanguage } from '../contexts/LanguageContext';
+import { ALERTS_DUAS } from '../i18n/translations';
 
 interface ReadingState {
     startPage: number;
@@ -13,6 +15,7 @@ const ReadingInterface: React.FC = () => {
     const navigate = useNavigate();
     const { khatmId } = useParams<{ khatmId: string }>(); // This is slug usually, but UI doesn't care
     const { startPage, endPage, khatmName } = (state as ReadingState) || {};
+    const { t, language } = useLanguage();
 
     const [isFinished, setIsFinished] = useState(false);
     const [pagesContent, setPagesContent] = useState<QuranPageData[]>([]);
@@ -63,7 +66,7 @@ const ReadingInterface: React.FC = () => {
                 setPagesContent(results);
             } catch (err) {
                 console.error(err);
-                setError("حدث خطأ أثناء تحميل صفحات المصحف. يرجى التأكد من الاتصال بالإنترنت.");
+                setError(t('error'));
             } finally {
                 setLoading(false);
             }
@@ -72,15 +75,7 @@ const ReadingInterface: React.FC = () => {
         fetchPages();
     }, [startPage, endPage, isValidSession]);
 
-    const [randomDua, setRandomDua] = useState<string>("");
-
-    const DUAS = [
-        "اللهم اغفر له وارحمه، وعافه واعف عنه، وأكرم نزله، ووسع مدخله",
-        "اللهم اجعل قبره روضة من رياض الجنة، ولا تجعله حفرة من حفر النار",
-        "اللهم آنس وحدته، وآنسه في وحشته وغربته",
-        "اللهم اجعل قبره نورًا وضياءً لا ينقطع أبدًا",
-        "اللهم اجعل روحه مطمئنة راضية مرضية"
-    ];
+    const [randomDua, setRandomDua] = useState<typeof ALERTS_DUAS[0] | null>(null);
 
     if (!isValidSession) {
         return (
@@ -92,12 +87,12 @@ const ReadingInterface: React.FC = () => {
     }
 
     const handleFinish = () => {
-        const random = DUAS[Math.floor(Math.random() * DUAS.length)];
+        const random = ALERTS_DUAS[Math.floor(Math.random() * ALERTS_DUAS.length)];
         setRandomDua(random);
         setIsFinished(true);
     };
 
-    if (isFinished) {
+    if (isFinished && randomDua) {
         return (
             <div className="min-h-screen bg-background-light dark:bg-background-dark flex flex-col items-center justify-center p-4 animate-fade-in relative overflow-hidden">
                 {/* Background Pattern */}
@@ -108,12 +103,21 @@ const ReadingInterface: React.FC = () => {
                         <span className="material-symbols-outlined text-4xl text-primary">volunteer_activism</span>
                     </div>
 
-                    <h2 className="text-2xl font-bold mb-4 font-arabic dark:text-white">تقبل الله طاعتكم</h2>
+                    <h2 className="text-2xl font-bold mb-4 font-arabic dark:text-white">{t('acceptAllah')}</h2>
 
                     <div className="bg-gray-50 dark:bg-black/20 p-6 rounded-xl mb-8 border border-gray-100 dark:border-gray-700">
                         <p className="text-lg leading-loose font-quran text-gray-800 dark:text-gray-200">
-                            ”{randomDua}“
+                            ”{randomDua.ar}“
                         </p>
+                        {/* Show Translation if language is not Arabic */}
+                        {language !== 'ar' && (
+                            <>
+                                <div className="h-px bg-gray-200 dark:bg-gray-600 my-4 mx-8 opacity-50"></div>
+                                <p className="text-sm leading-relaxed text-gray-600 dark:text-gray-400 font-display">
+                                    "{randomDua[language]}"
+                                </p>
+                            </>
+                        )}
                     </div>
 
                     <div className="flex flex-col gap-3">
@@ -121,13 +125,13 @@ const ReadingInterface: React.FC = () => {
                             onClick={() => navigate(`/join/${khatmId}`)}
                             className="w-full bg-primary text-white py-3.5 rounded-xl font-bold shadow-lg shadow-primary/20 hover:bg-primary-dark transition-colors"
                         >
-                            قراءة المزيد
+                            {t('readMore')}
                         </button>
                         <button
                             onClick={() => navigate('/')}
                             className="w-full bg-transparent text-text-sub py-3.5 rounded-xl font-medium hover:bg-gray-50 dark:hover:bg-white/5"
                         >
-                            خروج
+                            {t('exit')}
                         </button>
                     </div>
                 </div>
@@ -151,18 +155,16 @@ const ReadingInterface: React.FC = () => {
 
                         <div className="mb-6 mt-2 text-center flex flex-col gap-4">
                             <div>
-                                <h3 className="text-xl font-bold text-primary mb-2">تنبيه</h3>
+                                <h3 className="text-xl font-bold text-primary mb-2">{t('alert')}</h3>
                                 <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
-                                    الرجاء الإبلاغ في حال ملاحظة وجود خطأ في الآية
-                                    <br />
-                                    أو في حال أن التطبيق لا يعمل بشكل صحيح
+                                    {t('reportIssue')}
                                 </p>
                             </div>
 
                             <div className="h-px bg-gray-100 dark:bg-white/10 w-full" />
 
                             <p className="text-sm font-medium text-text-main dark:text-white leading-relaxed opacity-80">
-                                هذا التطبيق هو صدقه جاريه عني و عن ابي و امي و عمي امير مشاوي و سائر المسلمين الاموات منهم و الاحياء
+                                {t('sadaqahJariyah')}
                             </p>
                         </div>
 
@@ -185,7 +187,7 @@ const ReadingInterface: React.FC = () => {
                             onClick={() => setShowReportModal(false)}
                             className="w-full mt-6 bg-primary text-white py-3 rounded-xl font-bold shadow-lg shadow-primary/20 hover:bg-primary-dark"
                         >
-                            حسناً
+                            {t('ok')}
                         </button>
                     </div>
                 </div>
@@ -198,14 +200,14 @@ const ReadingInterface: React.FC = () => {
                 </button>
                 <div className="flex flex-col items-center">
                     <h1 className="text-sm font-bold dark:text-white">{khatmName}</h1>
-                    <span className="text-xs text-primary font-bold">الصفحات {startPage} - {endPage}</span>
+                    <span className="text-xs text-primary font-bold">{t('pages')} {startPage} - {endPage}</span>
                 </div>
                 <div className="flex gap-2">
                     <button
                         onClick={() => setShowReportModal(true)}
                         className="px-3 py-1.5 bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 text-xs font-bold rounded-lg border border-red-100 dark:border-red-900/30 hover:bg-red-100 dark:hover:bg-red-900/30 transition-colors"
                     >
-                        تنبيه
+                        {t('alert')}
                     </button>
                     <button onClick={toggleTheme} className="p-2 text-text-sub hover:bg-gray-100 dark:hover:bg-white/10 rounded-full dark:text-gray-300">
                         <span className="material-symbols-outlined">
@@ -221,16 +223,16 @@ const ReadingInterface: React.FC = () => {
                 {loading && (
                     <div className="flex flex-col items-center justify-center py-20 gap-4">
                         <div className="w-12 h-12 border-4 border-primary/30 border-t-primary rounded-full animate-spin"></div>
-                        <p className="text-primary font-medium animate-pulse">جاري تحميل المصحف...</p>
+                        <p className="text-primary font-medium animate-pulse">{t('loading')}</p>
                     </div>
                 )}
 
                 {error && (
                     <div className="w-full bg-red-50 text-red-600 p-6 rounded-xl text-center border border-red-100">
-                        <p className="font-bold mb-2">عذراً</p>
+                        <p className="font-bold mb-2">{t('error')}</p>
                         <p>{error}</p>
                         <button onClick={() => window.location.reload()} className="mt-4 px-4 py-2 bg-white border border-red-200 rounded-lg text-sm font-semibold hover:bg-red-50">
-                            إعادة المحاولة
+                            {t('retry')}
                         </button>
                     </div>
                 )}
@@ -263,7 +265,7 @@ const ReadingInterface: React.FC = () => {
 
                         {/* Page Footer */}
                         <div className="bg-gray-50/30 dark:bg-white/5 py-2 px-6 border-t border-gray-100 dark:border-white/5 flex justify-center text-xs text-text-sub dark:text-gray-400">
-                            <span>صفحة {toArabicNumerals(page.pageNumber)}</span>
+                            <span>{t('page')} {toArabicNumerals(page.pageNumber)}</span>
                         </div>
                     </article>
                 ))}
@@ -279,7 +281,7 @@ const ReadingInterface: React.FC = () => {
                             className="w-full bg-primary hover:bg-primary-dark text-white h-14 rounded-xl shadow-lg shadow-primary/30 font-bold text-lg flex items-center justify-center gap-2 transition-transform active:scale-[0.98]"
                         >
                             <span className="material-symbols-outlined">check_circle</span>
-                            أتممت القراءة
+                            {t('finishedButton')}
                         </button>
                     )}
                 </div>
