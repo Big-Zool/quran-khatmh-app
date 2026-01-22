@@ -169,18 +169,27 @@ const ReadingInterface: React.FC = () => {
                         </div>
 
                         <div className="space-y-4 text-right" dir="ltr">
-                            <div className="bg-gray-50 dark:bg-black/20 p-3 rounded-lg flex items-center justify-end gap-3">
+                            <button
+                                onClick={() => window.open('mailto:bashmohandes04@gmail.com', '_blank')}
+                                className="w-full bg-gray-50 dark:bg-black/20 p-3 rounded-lg flex items-center justify-end gap-3 hover:bg-gray-100 dark:hover:bg-black/30 transition-colors cursor-pointer"
+                            >
                                 <span className="font-mono text-sm dark:text-gray-200">email: bashmohandes04@gmail.com</span>
                                 <span className="text-lg">📧</span>
-                            </div>
-                            <div className="bg-gray-50 dark:bg-black/20 p-3 rounded-lg flex items-center justify-end gap-3">
+                            </button>
+                            <button
+                                onClick={() => window.open('https://wa.me/905338538057', '_blank')}
+                                className="w-full bg-gray-50 dark:bg-black/20 p-3 rounded-lg flex items-center justify-end gap-3 hover:bg-gray-100 dark:hover:bg-black/30 transition-colors cursor-pointer"
+                            >
                                 <span className="font-mono text-sm dark:text-gray-200">whatsapp: +90 533 853 80 57</span>
                                 <span className="text-lg">📱</span>
-                            </div>
-                            <div className="bg-gray-50 dark:bg-black/20 p-3 rounded-lg flex items-center justify-end gap-3">
+                            </button>
+                            <button
+                                onClick={() => window.open('https://instagram.com/kpzlz', '_blank')}
+                                className="w-full bg-gray-50 dark:bg-black/20 p-3 rounded-lg flex items-center justify-end gap-3 hover:bg-gray-100 dark:hover:bg-black/30 transition-colors cursor-pointer"
+                            >
                                 <span className="font-mono text-sm dark:text-gray-200">instagram: kpzlz</span>
                                 <span className="text-lg">📷</span>
-                            </div>
+                            </button>
                         </div>
 
                         <button

@@ -68,20 +68,23 @@ const CreateKhatm: React.FC = () => {
             {/* Main Layout Container */}
             <div className="layout-container relative z-10 flex h-full grow flex-col justify-center items-center p-4 md:p-8">
                 {/* Central Card Container */}
-                <div className="w-full max-w-[480px] bg-surface-light dark:bg-surface-dark shadow-[0_32px_64px_-12px_rgba(0,0,0,0.08)] dark:shadow-[0_32px_64px_-12px_rgba(0,0,0,0.3)] rounded-xl overflow-hidden transition-colors duration-300 border border-primary/5 dark:border-white/5">
+                <div className="w-full max-w-[480px] bg-surface-light dark:bg-surface-dark shadow-[0_32px_64px_-12px_rgba(0,0,0,0.08)] dark:shadow-[0_32px_64px_-12px_rgba(0,0,0,0.3)] rounded-2xl transition-colors duration-300 border border-primary/5 dark:border-white/5 relative">
 
                     {/* Header */}
-                    <header className="flex items-center justify-between px-6 py-5 border-b border-primary/10 dark:border-white/5 bg-white/50 dark:bg-black/10 backdrop-blur-sm">
-                        <div className="flex gap-2">
+                    <header className="relative z-[60] flex items-center justify-center px-6 py-5 border-b border-primary/10 dark:border-white/5 bg-white dark:bg-surface-dark rounded-t-2xl">
+                        <div className="absolute left-6 flex gap-2">
                             <LanguageSwitcher />
                         </div>
 
                         <h2 className="text-lg font-bold tracking-tight text-text-main dark:text-white">{t('newKhatm')}</h2>
-                        <button onClick={toggleTheme} className="flex items-center justify-center text-text-main dark:text-gray-300 hover:bg-primary/10 dark:hover:bg-white/10 rounded-full w-10 h-10 transition-colors">
-                            <span className="material-symbols-outlined text-2xl">
-                                {isDark ? 'light_mode' : 'dark_mode'}
-                            </span>
-                        </button>
+
+                        <div className="absolute right-6 flex gap-2">
+                            <button onClick={toggleTheme} className="flex items-center justify-center text-text-main dark:text-gray-300 hover:bg-primary/10 dark:hover:bg-white/10 rounded-full w-10 h-10 transition-colors">
+                                <span className="material-symbols-outlined text-2xl">
+                                    {isDark ? 'light_mode' : 'dark_mode'}
+                                </span>
+                            </button>
+                        </div>
                     </header>
 
                     {/* Content Area */}

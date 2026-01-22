@@ -1,4 +1,4 @@
-export type Language = 'ar' | 'en' | 'tr' | 'ur';
+export type Language = 'ar' | 'en' | 'tr' | 'ur' | 'fa';
 
 export const translations = {
     ar: {
@@ -146,7 +146,7 @@ export const translations = {
         creating: "Oluşturuluyor...",
         termsAgreement: "Hatim oluşturarak Hizmet Şartlarını kabul etmiş olursunuz.",
         termsLink: "Şartlar ve Koşullar",
-        errorNameRequired: "Lütfen devam etmeden önce bir isim girin",
+        errorNameRequired: "Lütfen devam etmeden önce bir isim girین",
 
         createdSuccess: "Hatim Başarıyla Oluşturuldu",
         shareLink: "Paylaşım Bağlantısı",
@@ -171,7 +171,7 @@ export const translations = {
         errorReserve: "Sayfa ayrılırken hata oluştu.",
         khatmCompletedMsg: "Elhamdülillah, bu hatim tamamlandı!",
 
-        page: "Sayfa",
+        page: "Sayفا",
         alert: "Uyarı",
         finishedButton: "Okumayı Bitirdim",
         reportIssue: "Ayetlerde bir hata fark ederseniz veya uygulama düzgün çalışmıyorsa lütfen bildirin",
@@ -188,7 +188,7 @@ export const translations = {
         appTitle: "قرآن ختم پلیٹ فارم",
         loading: "لوڈ ہو رہا ہے...",
         error: "ایک خرابی پیش آ گئی",
-        retry: "دوبارہ کوشش کریں",
+        retry: "دوباره کوشش کریں",
         back: "واپس",
         close: "بند کریں",
 
@@ -242,6 +242,65 @@ export const translations = {
 
         termsTitle: "شرائط و ضوابط",
         termsComingSoon: "شرائط و ضوابط جلد شامل کیے جائیں گے",
+    },
+    fa: {
+        appTitle: "پلتفرم ختم قرآن کریم",
+        loading: "در حال بارگذاری...",
+        error: "خطایی رخ داد",
+        retry: "تلاش مجدد",
+        back: "بازگشت",
+        close: "بستن",
+
+        newKhatm: "ختم جدید",
+        intention: "نیت",
+        startKhatmTitle: "شروع یک ختم قرآن",
+        startKhatmDesc: "فضایی برای خانواده و دوستان ایجاد کنید تا قرآن را با هم ختم کنند.",
+        forWho: "این ختم برای کیست؟",
+        khatmNamePlaceholder: "مثال: پدربزرگم احمد، عبدالله علی، فاطمه",
+        nameHelp: "نام‌گذاری ختم به شرکت‌کنندگان کمک می‌کند تا روی نیت تمرکز کنند.",
+        whatHappens: "بعد چه اتفاقی می‌افتد؟",
+        whatHappensDesc: "پس از ایجاد، یک لینک اختصاصی برای دعوت از خانواده و دوستان دریافت خواهید کرد تا صفحات را انتخاب کرده و بخوانند.",
+        createButton: "ایجاد ختم",
+        creating: "در حال ایجاد...",
+        termsAgreement: "با ایجاد ختم، شما با شرایط خدمات موافقت می‌کنید.",
+        termsLink: "شرایط و ضوابط",
+        errorNameRequired: "لطفاً قبل از ادامه، نام ختم را وارد کنید",
+
+        createdSuccess: "ختم با موفقیت ایجاد شد",
+        shareLink: "لینک اشتراک‌گذاری",
+        copy: "کپی",
+        copied: "کپی شد",
+        progress: "میزان پیشرفت",
+        viewKhatm: "مشاهده ختم",
+        khatmNotFound: "ختم یافت نشد",
+        backHome: "بازگشت به خانه",
+
+        joinTitle: "پیوستن به ختم",
+        activeKhatm: "ختم فعال",
+        pages: "صفحات",
+        from: "از",
+        howManyPages: "می‌خواهید چند صفحه بخوانید؟",
+        selectPagesDesc: "تعداد صفحاتی که می‌توانید الان بخوانید را انتخاب کنید",
+        estimatedTime: "زمان تخمینی مطالعه",
+        minutes: "دقیقه",
+        startReading: "شروع خواندن",
+        reserving: "در حال رزرو...",
+        errorCompleted: "متأسفیم، این ختم همین الان به پایان رسید!",
+        errorReserve: "خطا در رزرو صفحات.",
+        khatmCompletedMsg: "الحمدلله، این ختم به پایان رسید!",
+
+        page: "صفحه",
+        alert: "هشدار",
+        finishedButton: "خواندن را تمام کردم",
+        reportIssue: "لطفاً در صورت مشاهده هرگونه خطا در آیات یا اگر برنامه به درستی کار نمی‌کند، گزارش دهید",
+        sadaqahJariyah: "این برنامه یک صدقه جاریه برای من، والدینم، عمویم امیر مشاوی و تمامی مسلمانان درگذشته و زنده است.",
+        ok: "باشه",
+        acceptAllah: "طاعات شما قبول باشد",
+        readMore: "خواندن بیشتر",
+        exit: "خروج",
+
+        termsTitle: "شرایط و ضوابط",
+        termsComingSoon: "شرایط و ضوابط به زودی اضافه خواهد شد",
     }
 };
 
@@ -250,30 +309,35 @@ export const ALERTS_DUAS = [
         ar: "اللهم اغفر له وارحمه، وعافه واعف عنه، وأكرم نزله، ووسع مدخله",
         en: "O Allah, forgive him and have mercy on him, grant him wellbeing and pardon him, honor his reception and expand his entry.",
         tr: "Allah'ım, onu bağışla ve ona merhamet et, ona afiyet ver ve onu affet, ona güzel bir karşılama sun ve yerini genişlet.",
-        ur: "یا اللہ! اس کی مغفرت فرما اور اس پر رحم فرما، اسے عافیت دے اور اسے معاف فرما، اس کی مہمانی کو عزت دار بنا اور اس کی قبر کو وسیع فرما۔"
+        ur: "یا اللہ! اس کی مغفرت فرما اور اس پر رحم فرما، اسے عافیت دے اور اسے معاف فرما، اس کی مہمانی کو عزت دار بنا اور اس کی قبر کو وسیع فرما۔",
+        fa: "خداوندا او را بیامرز و مورد رحمت قرار ده، به او سلامتی ده و از او درگذر، پذیرایی‌اش را گرامی بدار و ورودش را وسعت بخش."
     },
     {
         ar: "اللهم اجعل قبره روضة من رياض الجنة، ولا تجعله حفرة من حفر النار",
         en: "O Allah, make his grave a garden from the gardens of Paradise, and do not make it a pit from the pits of Hellfire.",
         tr: "Allah'ım, kabrini cennet bahçelerinden bir bahçe eyle, cehennem çukurlarından bir çukur eyleme.",
-        ur: "یا اللہ! اس کی قبر کو جنت کے باغوں میں سے ایک باغ بنا، اور اسے جہنم کے گڑھوں میں سے ایک گڑھا نہ بنا۔"
+        ur: "یا اللہ! اس کی قبر کو جنت کے باغوں میں سے ایک باغ بنا، اور اسے جہنم کے گڑھوں میں سے ایک گڑھا نہ بنا۔",
+        fa: "خداوندا قبرش را باغی از باغ‌های بهشت قرار ده و آن را گودالی از گودال‌های آتش مگردان."
     },
     {
         ar: "اللهم آنس وحدته، وآنسه في وحشته وغربته",
         en: "O Allah, comfort his loneliness, and comfort him in his desolation and strangeness.",
         tr: "Allah'ım, yalnızlığını gider, ıssızlığında ve garipliğinde ona yoldaş ol.",
-        ur: "یا اللہ! اس کی تنہائی کو انسیت میں بدل دے، اور اس کی وحشت اور اجنیت میں اس کا ساتھی بن جا۔"
+        ur: "یا اللہ! اس کی تنہائی کو انسیت میں بدل دے، اور اس کی وحشت اور اجنیت میں اس کا ساتھی بن جا۔",
+        fa: "خداوندا تنهایی‌اش را همدم باش و در وحشت و غربت مونس او باش."
     },
     {
         ar: "اللهم اجعل قبره نورًا وضياءً لا ينقطع أبدًا",
         en: "O Allah, fill his grave with light and radiance that never ceases.",
         tr: "Allah'ım, kabrini asla kesilmeyen bir nur ve ışıkla doldur.",
-        ur: "یا اللہ! اس کی قبر کو ایسے نور اور روشنی سے بھر دے جو کبھی ختم نہ ہو۔"
+        ur: "یا اللہ! اس کی قبر کو ایسے نور اور روشنی سے بھر دے جو کبھی ختم نہ ہو۔",
+        fa: "خداوندا قبرش را با نور و روشنایی همیشگی پر بگردان."
     },
     {
         ar: "اللهم اجعل روحه مطمئنة راضية مرضية",
         en: "O Allah, make his soul reassured, pleased, and pleasing.",
         tr: "Allah'ım, ruhunu huzurlu, razı olmuş ve razı olunmuş eyle.",
-        ur: "یا اللہ! اس کی روح کو مطمئن، راضی اور پسندیدہ بنا۔"
+        ur: "یا اللہ! اس کی روح کو مطمئن، راضی اور پسندیدہ بنا۔",
+        fa: "خداوندا روحش را مطمئن، خشنود و مورد رضایت قرار ده."
     }
 ];
