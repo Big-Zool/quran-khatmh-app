@@ -64,7 +64,17 @@ export const translations = {
 
         // Terms
         termsTitle: "الشروط والأحكام",
-        termsComingSoon: "سيتم إضافة الشروط والأحكام قريبًا",
+        termsText: [
+            "يهدف هذا التطبيق إلى تسهيل تنظيم ختمات القرآن الكريم بشكل جماعي عبر الإنترنت.",
+            "الخدمة مقدمة كما هي دون أي ضمانات، وقد يتم تعديلها أو إيقافها في أي وقت.",
+            "تم استخدام مصادر موثوقة (Quran.com API) لعرض النص القرآني، ونرجو الإبلاغ فورًا في حال ملاحظة أي خطأ في المحتوى أو في عمل التطبيق.",
+            "يلتزم المستخدم باستخدام التطبيق استخدامًا لائقًا وعدم إساءة استخدامه.",
+            "لا يتطلب التطبيق تسجيل دخول، ولا يتم جمع بيانات شخصية، ويتم فقط تخزين معلومات متعلقة بتنظيم الختمة.",
+            "الروابط المنشأة لا تنتهي تلقائيًا، ولا يتحمل التطبيق مسؤولية فقدانها من قبل المستخدم.",
+            "يحق لإدارة التطبيق تعديل هذه الشروط في أي وقت."
+        ],
+        contactUs: "تواصل معنا",
+        quranSource: "مصدر النص القرآني: Quran.com API",
     },
     en: {
         appTitle: "Quran Khatm Platform",
@@ -123,7 +133,17 @@ export const translations = {
         exit: "Exit",
 
         termsTitle: "Terms & Conditions",
-        termsComingSoon: "Terms and Conditions will be added soon",
+        termsText: [
+            "This application aims to facilitate the organization of collective Quran Khatms online.",
+            "The service is provided 'as is' without any warranties and may be modified or discontinued at any time.",
+            "Reliable sources have been used to display the Quranic text (Quran.com API), and we kindly ask you to report immediately if you notice any error in the content or in the application's operation.",
+            "The user is committed to using the application appropriately and not misusing it.",
+            "The application does not require login, and no personal data is collected; only information related to organizing the Khatm is stored.",
+            "Created links do not expire automatically, and the application is not responsible for their loss by the user.",
+            "The application management reserves the right to modify these terms at any time."
+        ],
+        contactUs: "Contact Us",
+        quranSource: "Quran Source: Quran.com API",
     },
     tr: {
         appTitle: "Kuran Hatim Platformu",
@@ -146,7 +166,7 @@ export const translations = {
         creating: "Oluşturuluyor...",
         termsAgreement: "Hatim oluşturarak Hizmet Şartlarını kabul etmiş olursunuz.",
         termsLink: "Şartlar ve Koşullar",
-        errorNameRequired: "Lütfen devam etmeden önce bir isim girین",
+        errorNameRequired: "Lütfen devam etmeden önce bir isim girिन",
 
         createdSuccess: "Hatim Başarıyla Oluşturuldu",
         shareLink: "Paylaşım Bağlantısı",
@@ -154,7 +174,7 @@ export const translations = {
         copied: "Kopyalandı",
         progress: "İlerleme",
         viewKhatm: "Hatmi Görüntüle",
-        khatmNotFound: "Hatim bulunamadı",
+        khatmNotFound: "Hatim bulunamadى",
         backHome: "Ana Sayfaya Dön",
 
         joinTitle: "Hatme Katıl",
@@ -182,7 +202,17 @@ export const translations = {
         exit: "Çıkış",
 
         termsTitle: "Şartlar ve Koşullar",
-        termsComingSoon: "Şartlar ve Koşullar yakında eklenecek",
+        termsText: [
+            "Bu uygulama, çevrimiçi olarak toplu Kuran hatimlerinin düzenlenmesini kolaylaştırmayı amaçlamaktadır.",
+            "Hizmet, olduğu gibi sunulmakta olup herhangi bir garanti vermez ve her an değiştirilebilir veya durdurulabilir.",
+            "Kuran metnini görüntülemek için güvenilir kaynaklar kullanılmıştır (Quran.com API) ve içerikte veya uygulamanın işleyişinde herhangi bir hata fark ederseniz lütfen derhal bildirin.",
+            "Kullanıcı, uygulamayı uygun şekilde kullanmayı ve kötüye kullanmamayı taahhüt eder.",
+            "Uygulama giriş gerektirmez ve kişisel veri toplanmaz; sadece hatim düzenleme ile ilgili bilgiler saklanır.",
+            "Oluşturulan bağlantılar otomatik olarak sona ermez ve kullanıcı tarafından kaybedilmelerinden uygulama sorumlu değildir.",
+            "Uygulama yönetimi bu şartları istediği zaman değiştirme hakkını saklı tutar."
+        ],
+        contactUs: "Bize Ulaşın",
+        quranSource: "Kuran Kaynağı: Quran.com API",
     },
     ur: {
         appTitle: "قرآن ختم پلیٹ فارم",
@@ -241,7 +271,17 @@ export const translations = {
         exit: "باہر نکلیں",
 
         termsTitle: "شرائط و ضوابط",
-        termsComingSoon: "شرائط و ضوابط جلد شامل کیے جائیں گے",
+        termsText: [
+            "اس ایپلی کیشن کا مقصد آن لائن اجتماعی قرآن ختم کی تنظیم کو آسان بنانا ہے۔",
+            "یہ سروس 'جیسی ہے' کی بنیاد پر فراہم کی جاتی ہے بغیر کسی وارنٹی کے، اور اسے کسی بھی وقت تبدیل یا بند کیا جا سکتا ہے۔",
+            "قرآنی متن کو ظاہر کرنے کے لیے قابل اعتماد ذرائع (Quran.com API) کا استعمال کیا گیا ہے، اور ہم آپ سے گزارش کرتے ہیں کہ اگر آپ مواد یا ایپلی کیشن کے کام میں کوئی غلطی دیکھیں تو فوری طور پر مطلع کریں۔",
+            "صارف ایپلی کیشن کو مناسب طریقے سے استعمال کرنے اور اس کا غلط استعمال نہ کرنے کا پابند ہے۔",
+            "ایپلی کیشن میں لاگ ان کی ضرورت نہیں ہے، اور کوئی ذاتی ڈیٹا جمع نہیں کیا جاتا؛ صرف ختم کی تنظیم سے متعلق معلومات محفوظ کی جاتی ہے۔",
+            "بنائے گئے لنکس خود بخود ختم نہیں ہوتے، اور صارف کی جانب سے ان کے ضائع ہونے کی صورت میں ایپلی کیشن ذمہ دار نہیں ہے۔",
+            "ایپلی کیشن انتظامیہ کسی بھی وقت ان شرائط میں ترمیم کرنے کا حق محفوظ رکھتی ہے۔"
+        ],
+        contactUs: "ہم سے رابطہ کریں",
+        quranSource: "قرآن کا ذریعہ: Quran.com API",
     },
     fa: {
         appTitle: "پلتفرم ختم قرآن کریم",
@@ -300,7 +340,17 @@ export const translations = {
         exit: "خروج",
 
         termsTitle: "شرایط و ضوابط",
-        termsComingSoon: "شرایط و ضوابط به زودی اضافه خواهد شد",
+        termsText: [
+            "این برنامه با هدف تسهیل سازماندهی ختم‌های دسته جمعی قرآن کریم به صورت آنلاین طراحی شده است.",
+            "سرویس به صورت «همانگونه که هست» و بدون هیچ گونه تضمینی ارائه می‌شود و ممکن است در هر زمان تغییر کرده یا متوقف شود.",
+            "از منابع معتبر (Quran.com API) برای نمایش متن قرآن استفاده شده است و خواهشمندیم در صورت مشاهده هرگونه خطا در محتوا یا عملکرد برنامه، فوراً اطلاع دهید.",
+            "کاربر موظف است از برنامه به طور مناسب استفاده کرده و از سوء استفاده از آن خودداری کند.",
+            "این برنامه نیازی به ورود ندارد و هیچ داده شخصی جمع‌آوری نمی‌شود؛ فقط اطلاعات مربوط به سازماندهی ختم ذخیره می‌گردد.",
+            "لینک‌های ایجاد شده به طور خودکار منقضی نمی‌شوند و برنامه مسئولیتی در قبال گم شدن آن‌ها توسط کاربر ندارد.",
+            "مدیریت برنامه حق تغییر این شرایط را در هر زمان برای خود محفوظ می‌دارد."
+        ],
+        contactUs: "تماس با ما",
+        quranSource: "منبع قرآن: Quran.com API",
     }
 };
 

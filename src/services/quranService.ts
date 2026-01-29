@@ -4,6 +4,7 @@ interface Verse {
     verse_key: string;
     text_uthmani: string;
     chapter_id: number;
+    sajdah_number: number | null;
 }
 
 export interface QuranPageData {
@@ -37,8 +38,8 @@ const toArabicNumerals = (n: number | string): string => {
 
 export const getQuranPage = async (pageNumber: number): Promise<QuranPageData> => {
     try {
-        // Explicitly request chapter_id to ensure we can map surah names
-        const response = await fetch(`https://api.quran.com/api/v4/verses/by_page/${pageNumber}?language=ar&words=false&fields=text_uthmani,chapter_id`);
+        // Explicitly request chapter_id and sajdah_number to ensure we can map surah names and show sajdah signs
+        const response = await fetch(`https://api.quran.com/api/v4/verses/by_page/${pageNumber}?language=ar&words=false&fields=text_uthmani,chapter_id,sajdah_number`);
 
         if (!response.ok) {
             throw new Error(`Failed to fetch page ${pageNumber}`);

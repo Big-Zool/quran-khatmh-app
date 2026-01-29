@@ -257,19 +257,42 @@ const ReadingInterface: React.FC = () => {
 
                         {/* Verses Container */}
                         <div className="p-6 md:p-10 text-justify" dir="rtl">
-                            <p className="font-quran text-3xl md:text-4xl leading-[2.5] text-text-main dark:text-gray-100">
+                            <div className="font-quran text-3xl md:text-4xl leading-[2.5] text-text-main dark:text-gray-100">
                                 {page.verses.map((verse) => {
-                                    const verseNum = verse.verse_key.split(':')[1];
+                                    const [chapterIdStr, verseNumStr] = verse.verse_key.split(':');
+                                    const verseNum = parseInt(verseNumStr);
+                                    const chapterId = parseInt(chapterIdStr);
+
+                                    // Most Surahs start with Bismillah as a preamble.
+                                    // Al-Fatiha (1) already has it as verse 1 in this API.
+                                    // At-Tawbah (9) does not have it.
+                                    const showBismillah = verseNum === 1 && chapterId !== 1 && chapterId !== 9;
+
                                     return (
                                         <React.Fragment key={verse.id}>
-                                            {verse.text_uthmani}
-                                            <span className="text-primary text-2xl px-2 font-arabic_numerals inline-block select-none">
-                                                ﴿{toArabicNumerals(verseNum)}﴾
+                                            {showBismillah && (
+                                                <div className="w-full text-center my-8 py-6 border-y border-primary/10 bg-primary/10 rounded-2xl select-none overflow-hidden">
+                                                    <span className="text-4xl md:text-5xl text-primary block leading-none">﷽</span>
+                                                </div>
+                                            )}
+                                            <span className={`inline ${verse.sajdah_number ? 'bg-primary/5 rounded-lg px-1 relative' : ''}`}>
+                                                {verse.text_uthmani}
+                                                {!verse.text_uthmani.includes('۩') && verse.sajdah_number && (
+                                                    <span className="text-primary mx-1 animate-pulse" title="Sajdah">۩</span>
+                                                )}
+                                                <span className="text-primary text-2xl px-2 font-arabic_numerals inline-block select-none">
+                                                    ﴿{toArabicNumerals(verseNumStr)}﴾
+                                                </span>
+                                                {verse.sajdah_number && (
+                                                    <span className="absolute -top-6 left-1/2 -translate-x-1/2 text-[10px] bg-primary text-white px-2 py-0.5 rounded-full font-bold whitespace-nowrap shadow-sm">
+                                                        سجدة
+                                                    </span>
+                                                )}
                                             </span>
                                         </React.Fragment>
                                     );
                                 })}
-                            </p>
+                            </div>
                         </div>
 
                         {/* Page Footer */}
