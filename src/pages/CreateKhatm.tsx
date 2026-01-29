@@ -147,7 +147,7 @@ const CreateKhatm: React.FC = () => {
                                 {error}
                             </div>
                         )}
-                        {/* Action Button */}
+                        {/* Action Butto n */}
                         <div className="pt-2">
                             <button
                                 onClick={handleCreate}
