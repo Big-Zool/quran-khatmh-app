@@ -4,7 +4,7 @@ import { translations, type Language } from '../i18n/translations';
 interface LanguageContextType {
     language: Language;
     setLanguage: (lang: Language) => void;
-    t: (key: keyof typeof translations['ar']) => string;
+    t: (key: keyof typeof translations['ar']) => any;
     dir: 'rtl' | 'ltr';
 }
 
@@ -15,9 +15,7 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
     const [language, setLanguageState] = useState<Language>(() => {
         if (typeof window !== 'undefined') {
             const stored = localStorage.getItem('language') as Language;
-            if (stored && ['ar', 'en', 'tr', 'ur'].includes(stored)) return stored;
-
-            // Try browser language? Optional. Defaulting to 'ar' as app seems Arabic-first.
+            if (stored && ['ar', 'en', 'tr', 'ur', 'fa'].includes(stored)) return stored;
         }
         return 'ar';
     });
@@ -27,7 +25,7 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
         localStorage.setItem('language', lang);
     };
 
-    const dir = language === 'ar' || language === 'ur' ? 'rtl' : 'ltr';
+    const dir = language === 'ar' || language === 'ur' || language === 'fa' ? 'rtl' : 'ltr';
 
     useEffect(() => {
         document.documentElement.dir = dir;
