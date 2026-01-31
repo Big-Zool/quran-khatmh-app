@@ -32,9 +32,11 @@ const JoinKhatm: React.FC = () => {
         setError(null);
 
         try {
-            // Must use the real document ID for the transaction
+            // Pass the full title with cycle number to the reading interface
+            const fullTitle = `${khatm.name} (${t('khatmCycle')} ${khatm.completedCount + 1})`;
+
             const assignment = await assignPages(khatm.id!, pagesToRead);
-            navigate(`/read/${khatmId}`, { state: { ...assignment, khatmName: khatm?.name } });
+            navigate(`/read/${khatmId}`, { state: { ...assignment, khatmName: fullTitle } });
         } catch (err: any) {
             console.error(err);
             if (err.message.includes("completed")) {
@@ -50,7 +52,9 @@ const JoinKhatm: React.FC = () => {
 
     if (loading) return <div className="flex h-screen items-center justify-center text-primary font-bold">{t('loading')}</div>;
     if (!khatm) return <div className="p-8 text-center">{error || t('khatmNotFound')}</div>;
-    if (khatm.isCompleted) return <div className="p-8 text-center text-xl font-bold text-primary">{t('khatmCompletedMsg')}</div>;
+    // We no longer block joining even if isCompleted is true, 
+    // because it will reset on the next assignment.
+    // if (khatm.isCompleted) return <div className="p-8 text-center text-xl font-bold text-primary">{t('khatmCompletedMsg')}</div>;
 
     // Determine current progress percentage
     const progressPercent = Math.round(((khatm.currentPage - 1) / 604) * 100);
@@ -76,7 +80,9 @@ const JoinKhatm: React.FC = () => {
                             <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
                             <span className="text-xs font-bold uppercase">{t('activeKhatm')}</span>
                         </div>
-                        <h2 className="text-2xl font-bold mb-1">{khatm.name}</h2>
+                        <h2 className="text-2xl font-bold mb-1">
+                            {khatm.name} ({t('khatmCycle')} {khatm.completedCount + 1})
+                        </h2>
                         <div className="flex justify-between items-end mt-6">
                             <div className="flex flex-col">
                                 <span className="text-sm font-semibold">{t('progress')}</span>

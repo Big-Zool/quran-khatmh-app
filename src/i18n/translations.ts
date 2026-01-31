@@ -38,6 +38,7 @@ export const translations = {
 
         // Join
         joinTitle: "انضم للختمة",
+        khatmCycle: "الختمة رقم",
         activeKhatm: "ختمة نشطة",
         pages: "الصفحات",
         from: "من",
@@ -109,6 +110,7 @@ export const translations = {
         backHome: "Back to Home",
 
         joinTitle: "Join Khatm",
+        khatmCycle: "Khatm cycle",
         activeKhatm: "Active Khatm",
         pages: "Pages",
         from: "of 604",
@@ -178,6 +180,7 @@ export const translations = {
         backHome: "Ana Sayfaya Dön",
 
         joinTitle: "Hatme Katıl",
+        khatmCycle: "Hatim döngüsü",
         activeKhatm: "Aktif Hatim",
         pages: "Sayfalar",
         from: " / 604",
@@ -247,6 +250,7 @@ export const translations = {
         backHome: "ہوم پیج پر واپس",
 
         joinTitle: "ختم میں شامل ہوں",
+        khatmCycle: "ختم سائیکل",
         activeKhatm: "فعال ختم",
         pages: "صفحات",
         from: "سے",
@@ -316,6 +320,7 @@ export const translations = {
         backHome: "بازگشت به خانه",
 
         joinTitle: "پیوستن به ختم",
+        khatmCycle: "دوره ختم",
         activeKhatm: "ختم فعال",
         pages: "صفحات",
         from: "از",

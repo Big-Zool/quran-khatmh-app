@@ -113,22 +113,21 @@ export const assignPages = async (
 
     const data = snap.data() as Khatm;
 
-    if (data.isCompleted || data.currentPage > data.totalPages) {
-      throw new Error('This Khatm is already completed');
-    }
-
     const startPage = data.currentPage;
     const remainingPages = data.totalPages - startPage + 1;
 
     const pagesToAssign = Math.min(pagesRequested, remainingPages);
     const endPage = startPage + pagesToAssign - 1;
 
-    const newCurrentPage = endPage + 1;
-    const isFinishedNow = newCurrentPage > data.totalPages;
+    const nextRawPage = endPage + 1;
+    const isFinishedNow = nextRawPage > data.totalPages;
+
+    // RESTART LOGIC: If finished, reset current page to 1 for the next person
+    const finalCurrentPage = isFinishedNow ? 1 : nextRawPage;
 
     transaction.update(khatmRef, {
-      currentPage: newCurrentPage,
-      isCompleted: isFinishedNow,
+      currentPage: finalCurrentPage,
+      isCompleted: false, // Always false now to allow continuous joining
       completedCount: isFinishedNow
         ? (data.completedCount || 0) + 1
         : data.completedCount || 0,

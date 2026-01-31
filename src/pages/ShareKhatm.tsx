@@ -76,7 +76,7 @@ const ShareKhatm: React.FC = () => {
                 </h1>
 
                 <h2 className="text-xl font-medium text-primary mb-6">
-                    {khatm.name}
+                    {khatm.name} ({t('khatmCycle')} {khatm.completedCount + 1})
                 </h2>
 
                 <div className="mb-8">
