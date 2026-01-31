@@ -113,24 +113,29 @@ export const assignPages = async (
 
     const data = snap.data() as Khatm;
 
-    const startPage = data.currentPage;
-    const remainingPages = data.totalPages - startPage + 1;
+    let startPage = data.currentPage;
+    let currentCompletedCount = data.completedCount || 0;
 
+    // PROTECTION: If we find a "zombie" doc already past the end, reset it immediately
+    if (startPage > data.totalPages) {
+      startPage = 1;
+    }
+
+    const remainingPages = data.totalPages - startPage + 1;
     const pagesToAssign = Math.min(pagesRequested, remainingPages);
     const endPage = startPage + pagesToAssign - 1;
 
     const nextRawPage = endPage + 1;
     const isFinishedNow = nextRawPage > data.totalPages;
 
-    // RESTART LOGIC: If finished, reset current page to 1 for the next person
+    // If this specific assignment finishes it, reset for the NEXT person
     const finalCurrentPage = isFinishedNow ? 1 : nextRawPage;
+    const finalCompletedCount = isFinishedNow ? currentCompletedCount + 1 : currentCompletedCount;
 
     transaction.update(khatmRef, {
       currentPage: finalCurrentPage,
-      isCompleted: false, // Always false now to allow continuous joining
-      completedCount: isFinishedNow
-        ? (data.completedCount || 0) + 1
-        : data.completedCount || 0,
+      isCompleted: false,
+      completedCount: finalCompletedCount,
     });
 
     return {
