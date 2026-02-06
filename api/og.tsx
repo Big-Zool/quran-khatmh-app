@@ -1,3 +1,4 @@
+import React from 'react';
 import { ImageResponse } from '@vercel/og';
 // No need to import Request, it's global in the Edge Runtime
 
@@ -14,7 +15,7 @@ export default async function handler(req: Request) {
         // Fetch the Arabic font for proper rendering
         // We use IBM Plex Sans Arabic for a modern feel
         const fontData = await fetch(
-            new URL('https://github.com/google/fonts/raw/main/ofl/ibmplexsansarabic/IBMPlexSansArabic-Bold.ttf', import.meta.url)
+            'https://github.com/google/fonts/raw/main/ofl/ibmplexsansarabic/IBMPlexSansArabic-Bold.ttf'
         ).then((res) => res.arrayBuffer());
 
         return new ImageResponse(
