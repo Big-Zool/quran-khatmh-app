@@ -18,6 +18,32 @@ const JoinKhatm: React.FC = () => {
     const [assigning, setAssigning] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
+    const [isDark, setIsDark] = useState(() => {
+        if (typeof window !== 'undefined') {
+            const stored = localStorage.getItem('theme');
+            return stored === 'dark' || !stored;
+        }
+        return true;
+    });
+
+    const toggleTheme = () => {
+        const newIsDark = !isDark;
+        setIsDark(newIsDark);
+        if (newIsDark) document.documentElement.classList.add('dark');
+        else document.documentElement.classList.remove('dark');
+        localStorage.setItem('theme', newIsDark ? 'dark' : 'light');
+    };
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const stored = localStorage.getItem('theme');
+            const isDarkPref = stored === 'dark' || !stored;
+            setIsDark(isDarkPref);
+            if (isDarkPref) document.documentElement.classList.add('dark');
+            else document.documentElement.classList.remove('dark');
+        }
+    }, []);
+
     useEffect(() => {
         if (khatmId) {
             getKhatmBySlug(khatmId)
@@ -72,7 +98,11 @@ const JoinKhatm: React.FC = () => {
                     <span className="material-symbols-outlined">arrow_forward</span>
                 </button>
                 <h1 className="font-bold text-lg">{t('joinTitle')}</h1>
-                <div className="w-10"></div>
+                <button onClick={toggleTheme} className="p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10">
+                    <span className="material-symbols-outlined">
+                        {isDark ? 'light_mode' : 'dark_mode'}
+                    </span>
+                </button>
             </header>
 
             <div className="w-full max-w-[440px] flex flex-col gap-6">

@@ -97,7 +97,7 @@ const ReadingInterface: React.FC = () => {
             try {
                 await navigator.share({
                     title: `صدقة جارية - ${name}`,
-                    text: `تم بحمد الله قراءة صفحات من القرآن الكريم بنية الصدقة الجارية عن ${name}`,
+                    text: `انضم إلينا في ختم القرآن الكريم - ${name}`,
                     url: shareLink,
                 });
             } catch (err) {
@@ -146,17 +146,17 @@ const ReadingInterface: React.FC = () => {
 
                     <div className="flex flex-col gap-3">
                         <button
+                            onClick={() => navigate(`/join/${khatmId}`)}
+                            className="w-full bg-primary text-white py-3.5 rounded-xl font-bold shadow-lg shadow-primary/20 hover:bg-primary-dark transition-colors"
+                        >
+                            {t('readMore')}
+                        </button>
+                        <button
                             onClick={handleShare}
-                            className="w-full bg-primary text-white py-3.5 rounded-xl font-bold shadow-lg shadow-primary/20 hover:bg-primary-dark transition-colors flex items-center justify-center gap-2"
+                            className="w-full bg-white dark:bg-surface-dark border border-gray-200 dark:border-gray-700 text-text-main dark:text-white py-3.5 rounded-xl font-bold hover:bg-gray-50 dark:hover:bg-white/5 transition-colors flex items-center justify-center gap-2"
                         >
                             <span className="material-symbols-outlined text-xl">share</span>
                             {t('shareLink')}
-                        </button>
-                        <button
-                            onClick={() => navigate(`/join/${khatmId}`)}
-                            className="w-full bg-surface-light dark:bg-black/10 text-primary py-3.5 rounded-xl font-bold border border-primary/20 hover:bg-primary/5 transition-colors"
-                        >
-                            {t('readMore')}
                         </button>
                         <button
                             onClick={() => navigate('/')}

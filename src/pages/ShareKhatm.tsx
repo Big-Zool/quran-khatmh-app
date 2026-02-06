@@ -9,6 +9,31 @@ const ShareKhatm: React.FC = () => {
     const [khatm, setKhatm] = useState<Khatm | null>(null);
     const [loading, setLoading] = useState(true);
     const [copied, setCopied] = useState(false);
+    const [isDark, setIsDark] = useState(() => {
+        if (typeof window !== 'undefined') {
+            const stored = localStorage.getItem('theme');
+            return stored === 'dark' || !stored;
+        }
+        return true;
+    });
+
+    const toggleTheme = () => {
+        const newIsDark = !isDark;
+        setIsDark(newIsDark);
+        if (newIsDark) document.documentElement.classList.add('dark');
+        else document.documentElement.classList.remove('dark');
+        localStorage.setItem('theme', newIsDark ? 'dark' : 'light');
+    };
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const stored = localStorage.getItem('theme');
+            const isDarkPref = stored === 'dark' || !stored;
+            setIsDark(isDarkPref);
+            if (isDarkPref) document.documentElement.classList.add('dark');
+            else document.documentElement.classList.remove('dark');
+        }
+    }, []);
 
     useEffect(() => {
         if (khatmId) {
@@ -79,10 +104,19 @@ const ShareKhatm: React.FC = () => {
         );
     }
 
-
     return (
-        <div className="flex flex-col items-center justify-center h-screen bg-background-light dark:bg-background-dark p-4 gap-6">
-            <div className="w-full max-w-[480px] bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-primary/10 p-8 text-center">
+        <div className="min-h-screen flex flex-col items-center justify-center bg-background-light dark:bg-background-dark p-4 relative">
+
+            {/* Header with Mode Switcher */}
+            <div className="absolute top-4 right-4 z-50">
+                <button onClick={toggleTheme} className="p-2 text-text-sub hover:bg-gray-100 dark:hover:bg-white/10 rounded-full dark:text-gray-300 transition-colors">
+                    <span className="material-symbols-outlined">
+                        {isDark ? 'light_mode' : 'dark_mode'}
+                    </span>
+                </button>
+            </div>
+
+            <div className="w-full max-w-[480px] bg-white dark:bg-surface-dark rounded-xl shadow-lg border border-primary/10 p-8 text-center animate-fade-in">
                 <div className="flex justify-center mb-6">
                     <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center text-primary">
                         <span className="material-symbols-outlined text-4xl">check_circle</span>
@@ -128,20 +162,23 @@ const ShareKhatm: React.FC = () => {
                 </div>
 
                 <div className="flex flex-col gap-3">
-                    <button
-                        onClick={handleShare}
-                        className="flex w-full items-center justify-center gap-2 bg-primary text-white rounded-xl py-3.5 font-bold hover:bg-primary-dark transition-colors"
-                    >
-                        <span className="material-symbols-outlined">share</span>
-                        {t('shareLink')}
-                    </button>
+                    {/* View Khatm (Green) */}
                     <Link
                         to={`/join/${shareSlug}`}
-                        className="flex w-full items-center justify-center gap-2 bg-transparent text-primary border border-primary/20 rounded-xl py-3.5 font-bold hover:bg-primary/5 transition-colors"
+                        className="flex w-full items-center justify-center gap-2 bg-primary text-white rounded-xl py-3.5 font-bold hover:bg-primary-dark transition-colors shadow-lg shadow-primary/20"
                     >
                         <span className="material-symbols-outlined">menu_book</span>
                         {t('viewKhatm')}
                     </Link>
+
+                    {/* Share Link (White/Secondary) */}
+                    <button
+                        onClick={handleShare}
+                        className="flex w-full items-center justify-center gap-2 bg-white dark:bg-surface-dark border border-gray-200 dark:border-gray-700 text-text-main dark:text-white rounded-xl py-3.5 font-bold hover:bg-gray-50 dark:hover:bg-white/5 transition-colors"
+                    >
+                        <span className="material-symbols-outlined">share</span>
+                        {t('shareLink')}
+                    </button>
                 </div>
             </div>
         </div>
