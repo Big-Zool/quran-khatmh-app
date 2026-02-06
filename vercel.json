@@ -1,6 +1,14 @@
 {
     "rewrites": [
         {
+            "source": "/og/khatmah",
+            "destination": "/api/og"
+        },
+        {
+            "source": "/s/:slug",
+            "destination": "/api/share?slug=:slug"
+        },
+        {
             "source": "/(.*)",
             "destination": "/index.html"
         }

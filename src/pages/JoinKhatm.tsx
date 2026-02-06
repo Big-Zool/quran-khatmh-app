@@ -8,6 +8,10 @@ const JoinKhatm: React.FC = () => {
     const navigate = useNavigate();
     const { t } = useLanguage();
 
+    // Get name from query params if available
+    const queryParams = new URLSearchParams(window.location.search);
+    const sharedName = queryParams.get('name');
+
     const [khatm, setKhatm] = useState<Khatm | null>(null);
     const [loading, setLoading] = useState(true);
     const [pagesToRead, setPagesToRead] = useState(2);
@@ -72,6 +76,12 @@ const JoinKhatm: React.FC = () => {
             </header>
 
             <div className="w-full max-w-[440px] flex flex-col gap-6">
+
+                {sharedName && (
+                    <div className="bg-primary/5 border border-primary/10 rounded-2xl p-4 text-center">
+                        <p className="text-sm text-primary font-bold">صدقة جارية عن {sharedName}</p>
+                    </div>
+                )}
 
                 {/* Khatm Info Card */}
                 <div className="bg-white dark:bg-surface-dark rounded-3xl p-6 shadow-sm border border-gray-100 dark:border-gray-700 relative overflow-hidden">

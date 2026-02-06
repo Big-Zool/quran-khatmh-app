@@ -86,6 +86,30 @@ const ReadingInterface: React.FC = () => {
         );
     }
 
+    const handleShare = async () => {
+        const shareSlug = khatmId; // slug
+        // Extract base name from khatmName (remove cycle info if present)
+        const name = khatmName?.split(' (')[0] || 'فاعل خير';
+        const shareBaseUrl = `${window.location.protocol}//${window.location.host}`;
+        const shareLink = `${shareBaseUrl}/s/${shareSlug}?name=${encodeURIComponent(name)}`;
+
+        if (navigator.share) {
+            try {
+                await navigator.share({
+                    title: `صدقة جارية - ${name}`,
+                    text: `تم بحمد الله قراءة صفحات من القرآن الكريم بنية الصدقة الجارية عن ${name}`,
+                    url: shareLink,
+                });
+            } catch (err) {
+                console.error("Error sharing", err);
+            }
+        } else {
+            navigator.clipboard.writeText(shareLink).then(() => {
+                alert(t('copied'));
+            });
+        }
+    };
+
     const handleFinish = () => {
         const random = ALERTS_DUAS[Math.floor(Math.random() * ALERTS_DUAS.length)];
         setRandomDua(random);
@@ -122,8 +146,15 @@ const ReadingInterface: React.FC = () => {
 
                     <div className="flex flex-col gap-3">
                         <button
+                            onClick={handleShare}
+                            className="w-full bg-primary text-white py-3.5 rounded-xl font-bold shadow-lg shadow-primary/20 hover:bg-primary-dark transition-colors flex items-center justify-center gap-2"
+                        >
+                            <span className="material-symbols-outlined text-xl">share</span>
+                            {t('shareLink')}
+                        </button>
+                        <button
                             onClick={() => navigate(`/join/${khatmId}`)}
-                            className="w-full bg-primary text-white py-3.5 rounded-xl font-bold shadow-lg shadow-primary/20 hover:bg-primary-dark transition-colors"
+                            className="w-full bg-surface-light dark:bg-black/10 text-primary py-3.5 rounded-xl font-bold border border-primary/20 hover:bg-primary/5 transition-colors"
                         >
                             {t('readMore')}
                         </button>

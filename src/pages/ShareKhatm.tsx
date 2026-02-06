@@ -31,14 +31,35 @@ const ShareKhatm: React.FC = () => {
         }
     }, [khatmId]);
 
+    // We use the SLUG (khatm.slug) for the join link if available, fallback to existing ID path if really needed (but slug is preferred)
+    // The current URL param (khatmId) IS the slug if we came from create.
+    const shareSlug = khatm?.slug || khatm?.id;
+    const shareBaseUrl = `${window.location.protocol}//${window.location.host}`;
+    const shareLink = khatm ? `${shareBaseUrl}/s/${shareSlug}?name=${encodeURIComponent(khatm.name)}` : '';
+
     const handleCopy = () => {
-        const url = window.location.href;
-        navigator.clipboard.writeText(url).then(() => {
+        navigator.clipboard.writeText(shareLink).then(() => {
             setCopied(true);
             setTimeout(() => setCopied(false), 2000);
         }).catch(err => {
             console.error("Failed to copy", err);
         });
+    };
+
+    const handleShare = async () => {
+        if (navigator.share && khatm) {
+            try {
+                await navigator.share({
+                    title: `صدقة جارية - ${khatm.name}`,
+                    text: `انضم إلينا في ختم القرآن الكريم - ${khatm.name}`,
+                    url: shareLink,
+                });
+            } catch (err) {
+                console.error("Error sharing", err);
+            }
+        } else {
+            handleCopy();
+        }
     };
 
     if (loading) {
@@ -58,9 +79,6 @@ const ShareKhatm: React.FC = () => {
         );
     }
 
-    // We use the SLUG (khatm.slug) for the join link if available, fallback to existing ID path if really needed (but slug is preferred)
-    // The current URL param (khatmId) IS the slug if we came from create.
-    const shareSlug = khatm.slug || khatm.id;
 
     return (
         <div className="flex flex-col items-center justify-center h-screen bg-background-light dark:bg-background-dark p-4 gap-6">
@@ -84,7 +102,7 @@ const ShareKhatm: React.FC = () => {
                     <div className="flex items-stretch rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden bg-background-light dark:bg-black/20">
                         <input
                             readOnly
-                            value={window.location.href}
+                            value={shareLink}
                             className="flex-1 px-4 py-3 bg-transparent text-left text-sm text-text-main dark:text-white outline-none"
                             dir="ltr"
                         />
@@ -109,13 +127,22 @@ const ShareKhatm: React.FC = () => {
                     </div>
                 </div>
 
-                <Link
-                    to={`/join/${shareSlug}`}
-                    className="flex w-full items-center justify-center gap-2 bg-primary text-white rounded-xl py-3.5 font-bold hover:bg-primary-dark transition-colors"
-                >
-                    <span className="material-symbols-outlined">menu_book</span>
-                    {t('viewKhatm')}
-                </Link>
+                <div className="flex flex-col gap-3">
+                    <button
+                        onClick={handleShare}
+                        className="flex w-full items-center justify-center gap-2 bg-primary text-white rounded-xl py-3.5 font-bold hover:bg-primary-dark transition-colors"
+                    >
+                        <span className="material-symbols-outlined">share</span>
+                        {t('shareLink')}
+                    </button>
+                    <Link
+                        to={`/join/${shareSlug}`}
+                        className="flex w-full items-center justify-center gap-2 bg-transparent text-primary border border-primary/20 rounded-xl py-3.5 font-bold hover:bg-primary/5 transition-colors"
+                    >
+                        <span className="material-symbols-outlined">menu_book</span>
+                        {t('viewKhatm')}
+                    </Link>
+                </div>
             </div>
         </div>
     );
