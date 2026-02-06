@@ -1,10 +1,11 @@
-import { NextRequest } from 'next/server';
+// No need to import Request, it's global in the Edge Runtime
+
 
 export const config = {
     runtime: 'edge',
 };
 
-export default async function handler(req: NextRequest) {
+export default async function handler(req: Request) {
     const { searchParams } = new URL(req.url);
     const slug = searchParams.get('slug');
     const name = searchParams.get('name') ?? 'فاعل خير';

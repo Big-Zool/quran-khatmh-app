@@ -1,11 +1,12 @@
 import { ImageResponse } from '@vercel/og';
-import { NextRequest } from 'next/server';
+// No need to import Request, it's global in the Edge Runtime
+
 
 export const config = {
     runtime: 'edge',
 };
 
-export default async function handler(req: NextRequest) {
+export default async function handler(req: Request) {
     try {
         const { searchParams } = new URL(req.url);
         const name = searchParams.get('name') ?? 'فاعل خير';
