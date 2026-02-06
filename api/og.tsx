@@ -1,4 +1,3 @@
-import React from 'react';
 import { ImageResponse } from '@vercel/og';
 // No need to import Request, it's global in the Edge Runtime
 
