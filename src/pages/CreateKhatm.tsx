@@ -168,7 +168,7 @@ const CreateKhatm: React.FC = () => {
                 </div>
 
                 {/* Footer Branding */}
-                <div className="mt-8 flex flex-col items-center gap-2 opacity-60 hover:opacity-100 transition-opacity">
+                <div className="mt-4 flex flex-col items-center gap-2 opacity-60 hover:opacity-100 transition-opacity">
                     <div className="flex items-center gap-2 text-text-muted text-sm font-medium">
                         <span className="material-symbols-outlined text-lg">mosque</span>
                         <span>{t('appTitle')}</span>

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getKhatmBySlug, assignPages, type Khatm } from '../firebase/khatmService';
 import { useLanguage } from '../contexts/LanguageContext';
+import FloatingTasbihButton from '../components/FloatingTasbihButton';
 
 const JoinKhatm: React.FC = () => {
     const { khatmId } = useParams<{ khatmId: string }>(); // slug
@@ -139,6 +140,28 @@ const JoinKhatm: React.FC = () => {
                     </div>
                 </div>
 
+                {/* Remaining Pages Card */}
+                <div className="bg-white dark:bg-surface-dark rounded-2xl p-4 shadow-sm border border-gray-100 dark:border-gray-700">
+                    <div className="flex justify-between items-center">
+                        <div className="flex flex-col items-end">
+                            <span className="text-xs font-semibold text-[#6B8E7C]">
+                                الصفحات المتبقية
+                            </span>
+                            <span className="text-[10px] text-[#6B8E7C]/70">
+                                من إجمالي المصحف
+                            </span>
+                        </div>
+                        <div className="flex items-baseline gap-1.5">
+                            <span className="text-3xl font-bold text-[#6B8E7C]">
+                                {Math.max(0, 604 - khatm.currentPage + 1)}
+                            </span>
+                            <span className="text-xs font-semibold text-[#6B8E7C]">
+                                صفحة
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
                 {/* Selection Section */}
                 <div className="flex flex-col gap-4 text-center mt-2">
                     <h3 className="text-xl font-bold">{t('howManyPages')}</h3>
@@ -187,6 +210,9 @@ const JoinKhatm: React.FC = () => {
                 </button>
 
             </div>
+
+            {/* Floating Tasbih Button */}
+            <FloatingTasbihButton khatmId={khatmId || ''} />
         </div>
     );
 };

@@ -140,7 +140,7 @@ const ShareKhatm: React.FC = () => {
                 <div className="mb-6 flex items-stretch rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden bg-background-light dark:bg-black/20">
                     <button
                         onClick={handleCopy}
-                        className="px-6 bg-[#8BA888] text-white font-bold text-sm hover:bg-[#8BA888]/90 transition-colors shadow-sm"
+                        className="px-6 bg-[#6B8E7C] text-white font-bold text-sm hover:bg-[#6B8E7C]/90 transition-colors shadow-sm"
                     >
                         {copied ? t('copied') : t('copy')}
                     </button>
