@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { getKhatmBySlug, type Khatm } from '../firebase/khatmService';
+import { subscribeToKhatmBySlug, type Khatm } from '../firebase/khatmService';
 import { useLanguage } from '../contexts/LanguageContext';
+import FloatingTasbihButton from '../components/FloatingTasbihButton';
 
 const ShareKhatm: React.FC = () => {
     const { khatmId } = useParams<{ khatmId: string }>(); // This is actually the SLUG now
@@ -9,6 +10,8 @@ const ShareKhatm: React.FC = () => {
     const [khatm, setKhatm] = useState<Khatm | null>(null);
     const [loading, setLoading] = useState(true);
     const [copied, setCopied] = useState(false);
+
+    // Theme logic can be moved to context or kept if minimal
     const [isDark, setIsDark] = useState(() => {
         if (typeof window !== 'undefined') {
             const stored = localStorage.getItem('theme');
@@ -37,22 +40,19 @@ const ShareKhatm: React.FC = () => {
 
     useEffect(() => {
         if (khatmId) {
-            // Treat the param as a slug
-            getKhatmBySlug(khatmId)
-                .then(data => {
-                    if (data) {
-                        setKhatm(data);
-                    } else {
-                        // Fallback? Or just set null
-                        setKhatm(null);
-                    }
-                })
-                .catch(err => {
-                    console.error(err);
-                })
-                .finally(() => {
+            // Updated to real-time subscription
+            const unsubscribe = subscribeToKhatmBySlug(
+                khatmId,
+                (data) => {
+                    setKhatm(data);
                     setLoading(false);
-                });
+                },
+                (err) => {
+                    console.error("Subscription error", err);
+                    setLoading(false);
+                }
+            );
+            return () => unsubscribe();
         }
     }, [khatmId]);
 
@@ -61,6 +61,7 @@ const ShareKhatm: React.FC = () => {
     const shareSlug = khatm?.slug || khatm?.id;
     const shareBaseUrl = `${window.location.protocol}//${window.location.host}`;
     const shareLink = khatm ? `${shareBaseUrl}/s/${shareSlug}?name=${encodeURIComponent(khatm.name)}` : '';
+    const shareNameSafe = khatm ? encodeURIComponent(khatm.name) : '';
 
     const handleCopy = () => {
         navigator.clipboard.writeText(shareLink).then(() => {
@@ -104,8 +105,12 @@ const ShareKhatm: React.FC = () => {
         );
     }
 
+    // Derived values
+    const progressPercent = Math.round(((khatm.currentPage - 1) / 604) * 100);
+    const remainingPages = Math.max(0, 604 - khatm.currentPage + 1);
+
     return (
-        <div className="min-h-screen flex flex-col items-center justify-center bg-background-light dark:bg-background-dark p-4 relative">
+        <div className="min-h-screen flex flex-col items-center justify-center bg-background-light dark:bg-background-dark p-4 relative pb-20">
 
             {/* Header with Mode Switcher */}
             <div className="absolute top-4 right-4 z-50">
@@ -116,7 +121,7 @@ const ShareKhatm: React.FC = () => {
                 </button>
             </div>
 
-            <div className="w-full max-w-[480px] bg-white dark:bg-surface-dark rounded-xl shadow-lg border border-primary/10 p-8 text-center animate-fade-in">
+            <div className="w-full max-w-[480px] bg-white dark:bg-surface-dark rounded-xl shadow-lg border border-primary/10 p-8 text-center animate-fade-in relative z-10">
                 <div className="flex justify-center mb-6">
                     <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center text-primary">
                         <span className="material-symbols-outlined text-4xl">check_circle</span>
@@ -131,40 +136,48 @@ const ShareKhatm: React.FC = () => {
                     {khatm.name} ({t('khatmCycle')} {khatm.completedCount + 1})
                 </h2>
 
-                <div className="mb-8">
-                    <label className="block text-sm text-text-sub dark:text-gray-400 mb-2">{t('shareLink')}</label>
-                    <div className="flex items-stretch rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden bg-background-light dark:bg-black/20">
-                        <input
-                            readOnly
-                            value={shareLink}
-                            className="flex-1 px-4 py-3 bg-transparent text-left text-sm text-text-main dark:text-white outline-none"
-                            dir="ltr"
-                        />
-                        <button
-                            onClick={handleCopy}
-                            className="px-4 bg-white dark:bg-surface-dark border-r border-gray-200 dark:border-gray-700 text-primary font-bold text-sm hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
-                        >
-                            {copied ? t('copied') : t('copy')}
-                        </button>
-                    </div>
+                <h3 className="text-sm font-bold text-text-sub mb-2">{t('shareLink')}</h3>
+                <div className="mb-6 flex items-stretch rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden bg-background-light dark:bg-black/20">
+                    <button
+                        onClick={handleCopy}
+                        className="px-6 bg-[#8BA888] text-white font-bold text-sm hover:bg-[#8BA888]/90 transition-colors shadow-sm"
+                    >
+                        {copied ? t('copied') : t('copy')}
+                    </button>
+                    <input
+                        readOnly
+                        value={shareLink}
+                        className="flex-1 px-4 py-3 bg-transparent text-left text-sm text-text-main dark:text-white outline-none overflow-ellipsis"
+                        dir="ltr"
+                    />
                 </div>
 
-                <div className="bg-background-light dark:bg-black/20 rounded-lg p-4 mb-6">
+                {/* Progress Bar */}
+                <div className="bg-background-light dark:bg-black/20 rounded-lg p-4 mb-4">
                     <div className="flex justify-between items-center mb-2">
                         <span className="text-sm font-bold text-text-main dark:text-white">{t('progress')}</span>
                         <span className="text-sm font-bold text-primary">
-                            {Math.round(((khatm.currentPage - 1) / 604) * 100)}%
+                            {progressPercent}%
                         </span>
                     </div>
                     <div className="h-2 w-full bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
-                        <div className="h-full bg-primary transition-all duration-1000" style={{ width: `${Math.round(((khatm.currentPage - 1) / 604) * 100)}%` }}></div>
+                        <div className="h-full bg-primary transition-all duration-1000" style={{ width: `${progressPercent}%` }}></div>
                     </div>
+                </div>
+
+                {/* Feature 1: Remaining Pages */}
+                <div className="bg-background-light dark:bg-black/20 rounded-lg p-4 mb-6 flex justify-between items-center">
+                    <div>
+                        <span className="text-2xl font-bold text-text-main dark:text-white">{remainingPages}</span>
+                        <span className="text-xs font-bold text-text-sub dark:text-gray-400 mr-2">{t('page')}</span>
+                    </div>
+                    <span className="text-sm font-bold text-text-sub dark:text-gray-400">{t('remainingPages') || 'الصفحات المتبقية'}</span>
                 </div>
 
                 <div className="flex flex-col gap-3">
                     {/* View Khatm (Green) */}
                     <Link
-                        to={`/join/${shareSlug}`}
+                        to={`/join/${shareSlug}${khatm.name ? `?name=${shareNameSafe}` : ''}`}
                         className="flex w-full items-center justify-center gap-2 bg-primary text-white rounded-xl py-3.5 font-bold hover:bg-primary-dark transition-colors shadow-lg shadow-primary/20"
                     >
                         <span className="material-symbols-outlined">menu_book</span>
@@ -181,6 +194,9 @@ const ShareKhatm: React.FC = () => {
                     </button>
                 </div>
             </div>
+
+            {/* Feature 2: Floating Tasbih Button */}
+            <FloatingTasbihButton khatmId={khatmId || ''} />
         </div>
     );
 };

@@ -35,6 +35,8 @@ export const translations = {
         viewKhatm: "عرض الختمة",
         khatmNotFound: "الختمة غير موجودة",
         backHome: "العودة للرئيسية",
+        tasbihTitle: "المسبحة الرقمية",
+        remainingPages: "الصفحات المتبقية",
 
         // Join
         joinTitle: "انضم للختمة",
@@ -108,6 +110,8 @@ export const translations = {
         viewKhatm: "View Khatm",
         khatmNotFound: "Khatm not found",
         backHome: "Back to Home",
+        tasbihTitle: "Digital Tasbih",
+        remainingPages: "Remaining Pages",
 
         joinTitle: "Join Khatm",
         khatmCycle: "Khatm cycle",
@@ -178,6 +182,8 @@ export const translations = {
         viewKhatm: "Hatmi Görüntüle",
         khatmNotFound: "Hatim bulunamadى",
         backHome: "Ana Sayfaya Dön",
+        tasbihTitle: "Dijital Tesbih",
+        remainingPages: "Kalan Sayfalar",
 
         joinTitle: "Hatme Katıl",
         khatmCycle: "Hatim döngüsü",
@@ -248,6 +254,8 @@ export const translations = {
         viewKhatm: "ختم دیکھیں",
         khatmNotFound: "ختم نہیں ملا",
         backHome: "ہوم پیج پر واپس",
+        tasbihTitle: "ڈیجیٹل تسبیح",
+        remainingPages: "بقیہ صفحات",
 
         joinTitle: "ختم میں شامل ہوں",
         khatmCycle: "ختم سائیکل",
@@ -318,6 +326,8 @@ export const translations = {
         viewKhatm: "مشاهده ختم",
         khatmNotFound: "ختم یافت نشد",
         backHome: "بازگشت به خانه",
+        tasbihTitle: "تسبیح دیجیتال",
+        remainingPages: "صفحات باقی‌مانده",
 
         joinTitle: "پیوستن به ختم",
         khatmCycle: "دوره ختم",

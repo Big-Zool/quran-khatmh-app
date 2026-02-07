@@ -8,7 +8,9 @@ import {
   runTransaction,
   query,
   where,
-  getDocs
+  getDocs,
+  updateDoc,
+  increment
 } from 'firebase/firestore';
 
 export interface Khatm {
@@ -20,6 +22,9 @@ export interface Khatm {
   isCompleted: boolean;
   completedCount: number;
   createdAt: Timestamp;
+  tasbihState?: {
+    totalClicks: number;
+  };
 }
 
 const KHATM_COLLECTION = 'khatms';
@@ -144,4 +149,43 @@ export const assignPages = async (
       isCompleted: isFinishedNow,
     };
   });
+};
+
+/* ---------------- TASBIH STATE ---------------- */
+/* ---------------- TASBIH STATE ---------------- */
+// New function to atomically increment tasbih state
+export const incrementKhatmTasbih = async (
+  khatmId: string,
+  sessionClicks: number
+) => {
+  if (sessionClicks <= 0) return;
+
+  // We update the FIELD directly using dot notation for nested object
+  const khatmRef = doc(db, KHATM_COLLECTION, khatmId);
+  await updateDoc(khatmRef, {
+    "tasbihState.totalClicks": increment(sessionClicks)
+  });
+};
+
+/* ---------------- REALTIME SUBSCRIPTION ---------------- */
+import { onSnapshot } from 'firebase/firestore';
+
+export const subscribeToKhatmBySlug = (
+  slug: string,
+  onUpdate: (khatm: Khatm | null) => void,
+  onError?: (error: any) => void
+) => {
+  const q = query(
+    collection(db, KHATM_COLLECTION),
+    where('slug', '==', slug)
+  );
+
+  return onSnapshot(q, (snapshot) => {
+    if (snapshot.empty) {
+      onUpdate(null);
+      return;
+    }
+    const docSnap = snapshot.docs[0];
+    onUpdate({ id: docSnap.id, ...docSnap.data() } as Khatm);
+  }, onError);
 };

@@ -6,6 +6,7 @@ import JoinKhatm from './pages/JoinKhatm';
 import ReadingInterface from './pages/ReadingInterface';
 import KhatmCompleted from './pages/KhatmCompleted';
 import Terms from './pages/Terms';
+import TasbihPage from './pages/TasbihPage';
 
 import { Analytics } from '@vercel/analytics/react';
 
@@ -39,6 +40,7 @@ function App() {
             <Route path="/join/:khatmId" element={<JoinKhatm />} />
             <Route path="/read/:khatmId" element={<ReadingInterface />} />
             <Route path="/completed/:khatmId" element={<KhatmCompleted />} />
+            <Route path="/zeker/:khatmId" element={<TasbihPage />} />
             <Route path="/terms" element={<Terms />} />
           </Routes>
           <Analytics />

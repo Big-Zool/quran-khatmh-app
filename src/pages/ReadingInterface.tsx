@@ -3,6 +3,7 @@ import { useLocation, useNavigate, useParams, Link } from 'react-router-dom';
 import { getQuranPage, type QuranPageData, toArabicNumerals } from '../services/quranService';
 import { useLanguage } from '../contexts/LanguageContext';
 import { ALERTS_DUAS } from '../i18n/translations';
+import FloatingTasbihButton from '../components/FloatingTasbihButton';
 
 interface ReadingState {
     startPage: number;
@@ -158,6 +159,9 @@ const ReadingInterface: React.FC = () => {
                             <span className="material-symbols-outlined text-xl">share</span>
                             {t('shareLink')}
                         </button>
+
+
+
                         <button
                             onClick={() => navigate('/')}
                             className="w-full bg-transparent text-text-sub py-3.5 rounded-xl font-medium hover:bg-gray-50 dark:hover:bg-white/5"
@@ -166,6 +170,8 @@ const ReadingInterface: React.FC = () => {
                         </button>
                     </div>
                 </div>
+                {/* Floating Tasbih Button */}
+                <FloatingTasbihButton khatmId={khatmId || ''} />
             </div>
         );
     }
