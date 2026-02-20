@@ -91,10 +91,10 @@ const JoinKhatm: React.FC = () => {
     const progressPercent = Math.round(((khatm.currentPage - 1) / 604) * 100);
 
     return (
-        <div className="min-h-screen bg-background-light dark:bg-background-dark text-text-main dark:text-white flex flex-col items-center p-4">
+        <div className="min-h-screen bg-background-light dark:bg-background-dark text-text-main dark:text-white flex flex-col items-center p-4 pb-24 overflow-x-hidden">
 
             {/* Header */}
-            <header className="w-full max-w-md flex items-center justify-between py-4 mb-4">
+            <header className="w-full max-w-md flex items-center justify-between py-4 mb-2">
                 <button onClick={() => navigate(-1)} className="p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10">
                     <span className="material-symbols-outlined">arrow_forward</span>
                 </button>

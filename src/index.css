@@ -2,7 +2,27 @@
 @config "../tailwind.config.js";
 
 @layer base {
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    width: 100%;
+    min-height: 100%;
+    position: relative;
+    -webkit-tap-highlight-color: transparent;
+  }
+
   body {
     @apply font-display bg-background-light text-text-main dark:bg-background-dark dark:text-white transition-colors duration-300;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 }

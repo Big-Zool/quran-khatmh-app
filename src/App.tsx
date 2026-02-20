@@ -7,6 +7,9 @@ import ReadingInterface from './pages/ReadingInterface';
 import KhatmCompleted from './pages/KhatmCompleted';
 import Terms from './pages/Terms';
 import TasbihPage from './pages/TasbihPage';
+import InstallPrompt from './components/InstallPrompt';
+import ScrollIndicator from './components/ScrollIndicator';
+
 
 import { Analytics } from '@vercel/analytics/react';
 
@@ -32,7 +35,7 @@ function App() {
   return (
     <LanguageProvider>
       <Router>
-        <div className="min-h-screen font-arabic text-text-main dark:text-white bg-background-light dark:bg-background-dark">
+        <div className="font-arabic text-text-main dark:text-white bg-background-light dark:bg-background-dark">
           <Routes>
             <Route path="/" element={<CreateKhatm />} />
             <Route path="/share/:khatmId" element={<ShareKhatm />} />
@@ -45,6 +48,8 @@ function App() {
           </Routes>
           <Analytics />
         </div>
+        <InstallPrompt />
+        <ScrollIndicator />
       </Router>
     </LanguageProvider>
   );

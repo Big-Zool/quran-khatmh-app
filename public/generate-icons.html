@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>PWA Icon Generator</title>
+</head>
+
+<body>
+    <canvas id="canvas192" width="192" height="192"></canvas>
+    <canvas id="canvas512" width="512" height="512"></canvas>
+    <script>
+        function createIcon(canvas) {
+            const ctx = canvas.getContext('2d');
+            const size = canvas.width;
+
+            // Background
+            ctx.fillStyle = '#6b8e7c';
+            ctx.fillRect(0, 0, size, size);
+
+            // Draw simple mosque/quran icon in white
+            ctx.fillStyle = '#ffffff';
+            ctx.strokeStyle = '#ffffff';
+            ctx.lineWidth = size * 0.03;
+
+            // Draw an open book shape
+            const centerX = size / 2;
+            const centerY = size / 2;
+            const bookWidth = size * 0.6;
+            const bookHeight = size * 0.5;
+
+            // Left page
+            ctx.beginPath();
+            ctx.moveTo(centerX, centerY - bookHeight / 2);
+            ctx.quadraticCurveTo(centerX - bookWidth / 4, centerY, centerX, centerY + bookHeight / 2);
+            ctx.stroke();
+
+            // Right page
+            ctx.beginPath();
+            ctx.moveTo(centerX, centerY - bookHeight / 2);
+            ctx.quadraticCurveTo(centerX + bookWidth / 4, centerY, centerX, centerY + bookHeight / 2);
+            ctx.stroke();
+
+            // Add decorative Islamic pattern dots
+            const dotRadius = size * 0.015;
+            for (let i = 0; i < 5; i++) {
+                ctx.beginPath();
+                ctx.arc(centerX - bookWidth / 6, centerY - bookHeight / 4 + i * size * 0.06, dotRadius, 0, Math.PI * 2);
+                ctx.fill();
+
+                ctx.beginPath();
+                ctx.arc(centerX + bookWidth / 6, centerY - bookHeight / 4 + i * size * 0.06, dotRadius, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        createIcon(document.getElementById('canvas192'));
+        createIcon(document.getElementById('canvas512'));
+
+        // Download links
+        const link192 = document.createElement('a');
+        link192.download = 'pwa-icon-192.png';
+        link192.href = document.getElementById('canvas192').toDataURL();
+        link192.textContent = 'Download 192x192 icon';
+        link192.style.display = 'block';
+        link192.style.margin = '10px';
+        document.body.appendChild(link192);
+
+        const link512 = document.createElement('a');
+        link512.download = 'pwa-icon-512.png';
+        link512.href = document.getElementById('canvas512').toDataURL();
+        link512.textContent = 'Download 512x512 icon';
+        link512.style.display = 'block';
+        link512.style.margin = '10px';
+        document.body.appendChild(link512);
+    </script>
+</body>
+
+</html>

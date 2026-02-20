@@ -21,19 +21,20 @@ const TasbihPage: React.FC = () => {
     const [khatm, setKhatm] = useState<Khatm | null>(null);
     const [loading, setLoading] = useState(true);
 
-    // LOCAL session counter - never synced in real-time
+    // 1) LOCAL session counter - maintained in state for UI and Ref for unmount logic
     const [sessionClicks, setSessionClicks] = useState(0);
-
-    // Track if we've already saved (to prevent double-save on unmount)
+    const sessionClicksRef = useRef(0);
+    const khatmRef = useRef<Khatm | null>(null);
     const hasSavedRef = useRef(false);
 
-    // Load initial data ONCE (no real-time listener)
+    // Fetch initial data ONCE
     useEffect(() => {
         if (!khatmId) return;
 
         getKhatmBySlug(khatmId)
             .then((data) => {
                 setKhatm(data);
+                khatmRef.current = data;
                 setLoading(false);
             })
             .catch((err) => {
@@ -42,23 +43,41 @@ const TasbihPage: React.FC = () => {
             });
     }, [khatmId]);
 
-    // Save session clicks on unmount
+    // 3) On Page Leave (unmount logic)
     useEffect(() => {
         return () => {
-            if (sessionClicks > 0 && khatm?.id && !hasSavedRef.current) {
+            const finalClicks = sessionClicksRef.current;
+            const currentKhatm = khatmRef.current;
+
+            // 5) Edge case: If clicks > 0 and not already saved
+            if (finalClicks > 0 && currentKhatm?.id && !hasSavedRef.current) {
+                // 3) Prevent double writes
                 hasSavedRef.current = true;
-                // Fire-and-forget atomic increment
-                incrementKhatmTasbih(khatm.id, sessionClicks).catch(console.error);
+
+                // 4) Use Firestore atomic increment
+                incrementKhatmTasbih(currentKhatm.id, finalClicks)
+                    .then(() => {
+                        console.log(`[Tasbeh] Successfully pushed ${finalClicks} clicks.`);
+                    })
+                    .catch((err) => {
+                        // 5) If write fails -> log error but do not crash UI
+                        console.error("[Tasbeh] Failed to push clicks:", err);
+                    });
             }
         };
-    }, [sessionClicks, khatm?.id]);
+    }, []); // Empty dependency array ensures this runs strictly on unmount
 
+    // 2) Increment Behavior
     const handleClick = () => {
         // Vibrate for feedback
         if (navigator.vibrate) navigator.vibrate(50);
 
-        // Increment LOCAL counter only
-        setSessionClicks(prev => prev + 1);
+        // 2) Optimistic update: increase state (UI) and Ref (for final capture)
+        setSessionClicks(prev => {
+            const next = prev + 1;
+            sessionClicksRef.current = next;
+            return next;
+        });
     };
 
     if (loading) {
@@ -77,13 +96,14 @@ const TasbihPage: React.FC = () => {
         );
     }
 
-    // Calculate current dhikr based on TOTAL (server + session)
-    const totalClicks = (khatm.tasbihState?.totalClicks || 0) + sessionClicks;
+    // 1) Logic: Display current counter (Firestore start value + local session clicks)
+    const serverClicks = khatm.tasbihState?.totalClicks || 0;
+    const totalClicks = serverClicks + sessionClicks;
     const currentDhikrIndex = Math.floor(totalClicks / TARGET_COUNT) % DHIKR_LIST.length;
     const displayCount = totalClicks === 0 ? 0 : ((totalClicks - 1) % TARGET_COUNT) + 1;
 
     return (
-        <div className="min-h-screen bg-background-light dark:bg-background-dark font-display flex flex-col items-center relative overflow-hidden text-text-main dark:text-white">
+        <div className="min-h-screen bg-background-light dark:bg-background-dark font-display flex flex-col items-center relative overflow-x-hidden text-text-main dark:text-white">
 
             {/* Header */}
             <header className="absolute top-0 w-full p-4 flex justify-between items-center z-20">
@@ -98,7 +118,7 @@ const TasbihPage: React.FC = () => {
             </header>
 
             {/* Main Content */}
-            <div className="flex-1 flex flex-col items-center justify-center w-full max-w-md z-10 gap-10 mt-10 px-4">
+            <div className="flex-1 flex flex-col items-center justify-center w-full max-w-md z-10 gap-8 mt-4 px-4">
 
                 {/* Dhikr Text */}
                 <div className="text-center animate-fade-in">
@@ -120,8 +140,8 @@ const TasbihPage: React.FC = () => {
                     </span>
                 </button>
 
-                {/* Stats */}
-                <div className="text-center">
+                {/* Global Stats - Shared globally per khatma link */}
+                <div className="text-center animate-fade-in">
                     <p className="text-text-sub dark:text-gray-400 text-sm mb-1">مجموع التسبيح</p>
                     <p className="text-3xl font-bold font-mono">{totalClicks.toLocaleString()}</p>
                 </div>

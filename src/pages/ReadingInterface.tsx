@@ -164,7 +164,7 @@ const ReadingInterface: React.FC = () => {
 
                         <button
                             onClick={() => navigate('/')}
-                            className="w-full bg-transparent text-text-sub py-3.5 rounded-xl font-medium hover:bg-gray-50 dark:hover:bg-white/5"
+                            className="w-full bg-gray-100/50 dark:bg-white/10 border border-gray-200/50 dark:border-white/5 text-text-sub dark:text-gray-300 py-3.5 rounded-xl font-medium hover:bg-gray-200/50 dark:hover:bg-white/20 transition-colors"
                         >
                             {t('exit')}
                         </button>
@@ -177,7 +177,7 @@ const ReadingInterface: React.FC = () => {
     }
 
     return (
-        <div className="min-h-screen flex flex-col bg-background-light dark:bg-background-dark font-display transition-colors duration-300 relative">
+        <div className="min-h-screen flex flex-col bg-background-light dark:bg-background-dark font-display transition-colors duration-300 relative overflow-x-hidden">
 
             {/* Report Modal */}
             {showReportModal && (
@@ -264,7 +264,7 @@ const ReadingInterface: React.FC = () => {
             </header>
 
             {/* Reading Content */}
-            <main className="flex-grow flex flex-col items-center p-4 pt-24 pb-32 w-full max-w-3xl mx-auto gap-8">
+            <main className="flex-grow flex flex-col items-center p-5 pt-30 pb-32 w-full max-w-3xl mx-auto gap-15">
 
                 {loading && (
                     <div className="flex flex-col items-center justify-center py-20 gap-4">
@@ -308,8 +308,8 @@ const ReadingInterface: React.FC = () => {
                                     return (
                                         <React.Fragment key={verse.id}>
                                             {showBismillah && (
-                                                <div className="w-full text-center my-8 py-6 border-y border-primary/10 bg-primary/10 rounded-2xl select-none overflow-hidden">
-                                                    <span className="text-4xl md:text-5xl text-primary block leading-none">﷽</span>
+                                                <div className="w-full text-center my-6 py-4 px-2 border-y border-primary/10 bg-primary/10 rounded-2xl select-none overflow-hidden flex items-center justify-center">
+                                                    <span className="text-2xl sm:text-3xl md:text-5xl text-primary block leading-none whitespace-nowrap font-arabic">﷽</span>
                                                 </div>
                                             )}
                                             <span className={`inline ${verse.sajdah_number ? 'bg-primary/5 rounded-lg px-1 relative' : ''}`}>

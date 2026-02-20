@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PWA Status Check</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            direction: rtl;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .check-item {
+            background: #f8f9fa;
+            padding: 15px 20px;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            border-left: 4px solid #ddd;
+        }
+
+        .check-item.success {
+            border-left-color: #28a745;
+            background: #e8f5e9;
+        }
+
+        .check-item.error {
+            border-left-color: #dc3545;
+            background: #ffebee;
+        }
+
+        .check-item.warning {
+            border-left-color: #ffc107;
+            background: #fff8e1;
+        }
+
+        .check-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        .check-detail {
+            font-size: 14px;
+            color: #666;
+            font-family: 'Courier New', monospace;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        .status-badge.success {
+            background: #28a745;
+            color: white;
+        }
+
+        .status-badge.error {
+            background: #dc3545;
+            color: white;
+        }
+
+        .status-badge.warning {
+            background: #ffc107;
+            color: #333;
+        }
+
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s;
+        }
+
+        button:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+
+        .section {
+            margin-top: 30px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #333;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>🔍 فحص حالة PWA</h1>
+        <div class="subtitle">Khatm PWA Status Checker</div>
+
+        <div class="section">
+            <div class="section-title">الحالة الأساسية</div>
+            <div id="checks"></div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">التفاصيل التقنية</div>
+            <div id="details"></div>
+        </div>
+
+        <button onclick="location.reload()">تحديث الفحص</button>
+        <button onclick="window.location.href='/'">العودة للتطبيق</button>
+    </div>
+
+    <script>
+        const checksContainer = document.getElementById('checks');
+        const detailsContainer = document.getElementById('details');
+
+        function addCheck(title, detail, status) {
+            const div = document.createElement('div');
+            div.className = `check-item ${status}`;
+
+            const badge = status === 'success' ? '✅' :
+                status === 'error' ? '❌' : '⚠️';
+
+            const statusText = status === 'success' ? 'جاهز' :
+                status === 'error' ? 'خطأ' : 'تحذير';
+
+            div.innerHTML = `
+                <div class="check-title">
+                    ${badge} ${title}
+                    <span class="status-badge ${status}">${statusText}</span>
+                </div>
+                <div class="check-detail">${detail}</div>
+            `;
+            checksContainer.appendChild(div);
+        }
+
+        function addDetail(title, value) {
+            const div = document.createElement('div');
+            div.className = 'check-item';
+            div.innerHTML = `
+                <div class="check-title">${title}</div>
+                <div class="check-detail">${value}</div>
+            `;
+            detailsContainer.appendChild(div);
+        }
+
+        // Run checks
+        async function runChecks() {
+            // Check 1: Service Worker Support
+            if ('serviceWorker' in navigator) {
+                addCheck(
+                    'دعم Service Worker',
+                    'المتصفح يدعم الـ service workers',
+                    'success'
+                );
+            } else {
+                addCheck(
+                    'دعم Service Worker',
+                    'المتصفح لا يدعم الـ service workers',
+                    'error'
+                );
+            }
+
+            // Check 2: Service Worker Registration
+            if ('serviceWorker' in navigator) {
+                try {
+                    const registration = await navigator.serviceWorker.getRegistration();
+                    if (registration) {
+                        addCheck(
+                            'تسجيل Service Worker',
+                            `مسجل: ${registration.scope}`,
+                            'success'
+                        );
+                        addDetail('Service Worker Scope', registration.scope);
+                        addDetail('Service Worker State', registration.active?.state || 'N/A');
+                    } else {
+                        addCheck(
+                            'تسجيل Service Worker',
+                            'غير مسجل (طبيعي في Development mode)',
+                            'warning'
+                        );
+                    }
+                } catch (error) {
+                    addCheck(
+                        'تسجيل Service Worker',
+                        `خطأ: ${error.message}`,
+                        'error'
+                    );
+                }
+            }
+
+            // Check 3: Manifest
+            try {
+                const response = await fetch('/manifest.json');
+                if (response.ok) {
+                    const manifest = await response.json();
+                    addCheck(
+                        'ملف Manifest',
+                        `موجود: ${manifest.name || manifest.short_name}`,
+                        'success'
+                    );
+                    addDetail('App Name', manifest.name);
+                    addDetail('Short Name', manifest.short_name);
+                    addDetail('Theme Color', manifest.theme_color);
+                    addDetail('Background Color', manifest.background_color);
+                    addDetail('Display Mode', manifest.display);
+                    addDetail('Direction', manifest.dir);
+                    addDetail('Language', manifest.lang);
+                } else {
+                    addCheck(
+                        'ملف Manifest',
+                        `خطأ HTTP: ${response.status}`,
+                        'error'
+                    );
+                }
+            } catch (error) {
+                addCheck(
+                    'ملف Manifest',
+                    `خطأ: ${error.message}`,
+                    'error'
+                );
+            }
+
+            // Check 4: Icons
+            const iconSizes = ['192', '512'];
+            for (const size of iconSizes) {
+                try {
+                    const response = await fetch(`/pwa-icon-${size}.png`);
+                    if (response.ok) {
+                        addCheck(
+                            `أيقونة ${size}x${size}`,
+                            'موجودة',
+                            'success'
+                        );
+                    } else {
+                        addCheck(
+                            `أيقونة ${size}x${size}`,
+                            `مفقودة (${response.status}) - يجب إنشاؤها!`,
+                            'error'
+                        );
+                    }
+                } catch (error) {
+                    addCheck(
+                        `أيقونة ${size}x${size}`,
+                        'خطأ في التحميل',
+                        'error'
+                    );
+                }
+            }
+
+            // Check 5: HTTPS
+            if (location.protocol === 'https:' || location.hostname === 'localhost') {
+                addCheck(
+                    'اتصال آمن (HTTPS)',
+                    `${location.protocol}//${location.host}`,
+                    'success'
+                );
+            } else {
+                addCheck(
+                    'اتصال آمن (HTTPS)',
+                    'PWA تتطلب HTTPS أو localhost',
+                    'warning'
+                );
+            }
+
+            // Check 6: Install Prompt
+            let installPromptDetected = false;
+            window.addEventListener('beforeinstallprompt', (e) => {
+                installPromptDetected = true;
+            });
+
+            setTimeout(() => {
+                if (installPromptDetected) {
+                    addCheck(
+                        'إمكانية التثبيت',
+                        'التطبيق قابل للتثبيت',
+                        'success'
+                    );
+                } else {
+                    const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
+                    if (isStandalone) {
+                        addCheck(
+                            'إمكانية التثبيت',
+                            'التطبيق مثبت بالفعل',
+                            'success'
+                        );
+                    } else {
+                        addCheck(
+                            'إمكانية التثبيت',
+                            'لم يتم اكتشاف install prompt (قد يكون مثبتاً أو غير مدعوم)',
+                            'warning'
+                        );
+                    }
+                }
+            }, 1000);
+
+            // Additional details
+            addDetail('User Agent', navigator.userAgent);
+            addDetail('Platform', navigator.platform);
+            addDetail('Online Status', navigator.onLine ? 'متصل' : 'غير متصل');
+            addDetail('Language', navigator.language);
+            addDetail('Standalone Mode', window.matchMedia('(display-mode: standalone)').matches ? 'نعم' : 'لا');
+        }
+
+        runChecks();
+    </script>
+</body>
+
+</html>

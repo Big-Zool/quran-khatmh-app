@@ -59,14 +59,14 @@ const CreateKhatm: React.FC = () => {
     };
 
     return (
-        <div className="min-h-screen flex flex-col relative overflow-hidden transition-colors duration-300">
+        <div className="min-h-screen flex flex-col relative overflow-x-hidden transition-colors duration-300">
             {/* Decorative Background Elements */}
             <div className="absolute inset-0 z-0 pointer-events-none bg-islamic-pattern opacity-100 dark:opacity-50"></div>
             <div className="absolute top-0 right-0 -mr-20 -mt-20 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[100px] pointer-events-none"></div>
             <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[80px] pointer-events-none"></div>
 
             {/* Main Layout Container */}
-            <div className="layout-container relative z-10 flex h-full grow flex-col justify-center items-center p-4 md:p-8">
+            <div className="layout-container relative z-10 flex h-full grow flex-col justify-start items-center p-4 pt-8 md:p-8 md:pt-12">
                 {/* Central Card Container */}
                 <div className="w-full max-w-[480px] bg-surface-light dark:bg-surface-dark shadow-[0_32px_64px_-12px_rgba(0,0,0,0.08)] dark:shadow-[0_32px_64px_-12px_rgba(0,0,0,0.3)] rounded-2xl transition-colors duration-300 border border-primary/5 dark:border-white/5 relative">
 

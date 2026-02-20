@@ -110,7 +110,7 @@ const ShareKhatm: React.FC = () => {
     const remainingPages = Math.max(0, 604 - khatm.currentPage + 1);
 
     return (
-        <div className="min-h-screen flex flex-col items-center justify-center bg-background-light dark:bg-background-dark p-4 relative pb-20">
+        <div className="min-h-screen flex flex-col items-center bg-background-light dark:bg-background-dark p-4 pt-16 relative pb-24 overflow-x-hidden">
 
             {/* Header with Mode Switcher */}
             <div className="absolute top-4 right-4 z-50">
